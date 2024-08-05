@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.swing.BorderFactory;
@@ -21,8 +22,9 @@ public class Post implements HasPost, Comparable<Post> {
      private int unlikes;
      private int comments;
      private float priority;
+     private ArrayList<String> tagsGroup;
 
-     public Post(String title, String caption, String hashTag,float priority) {
+     public Post(String title, String caption, String hashTag,float priority,ArrayList<String> tagsGroup) {
          this.title = title;
          this.caption = caption;
          this.hashTag = hashTag;
@@ -30,6 +32,7 @@ public class Post implements HasPost, Comparable<Post> {
          this.likes = 0;
          this.unlikes = 0;
          this.comments = 0;
+         this.tagsGroup = tagsGroup;
      }
      
      @Override

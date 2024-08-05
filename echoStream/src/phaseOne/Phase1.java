@@ -1,5 +1,6 @@
 package phaseOne;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import components.GlobalHolder;
 import components.Graph;
@@ -25,7 +26,7 @@ public class Phase1 {
         ArrayList<Post> posts = new ArrayList<>();
         
         for (int i = 1; i <= 100; i++) {
-            posts.add(new Post("Post " + i, "Caption for post " + i, "HashTag" + i,1));
+            posts.add(new Post("Post " + i, "Caption for post " + i, "HashTag" + i,1,new ArrayList<String>(Arrays.asList("boy", "gay", "sport")) ));
         }
         
         return posts;
@@ -71,22 +72,24 @@ public class Phase1 {
       
         
        
-        //function( graph, tag, tagPriority, postName, postTitle, tags , postPriority
-        //tag and tagPriority are composite key,(e.g, if girl tag is 1f it always 1f)
-        createInstance.create(g, "girl", "We love Sushi","We love Sushi","girl",2.8f);
-        
-        
-        createInstance.create(g, "boy", "Wtf","We love Sushi","boy",2.8f);
-        createInstance.create(g, "boy", "Sorry","We love Sushi","boy",2.8f);
-        createInstance.create(g,"boy" , "Ha Ha","We love Sushi","boy",1.8f);
-        createInstance.create(g,"girl" , "Ha Ha","We love Sushi","girl",1.8f);
-        createInstance.create(g,"sport" , "HaddHa","We love Sushi","girl",1.8f);
+//        //function( graph, tag, tagPriority, postName, postTitle, tags , postPriority
+//        //tag and tagPriority are composite key,(e.g, if girl tag is 1f it always 1f)
+//        createInstance.create(g, "girl", "We love Sushi","We love Sushi","girl",2.8f);
+//        
+//        
+//        createInstance.create(g, "boy", "Wtf","We love Sushi","boy",2.8f);
+//        createInstance.create(g, "boy", "Sorry","We love Sushi","boy",2.8f);
+//        createInstance.create(g,"boy" , "Ha Ha","We love Sushi","boy",1.8f);
+//        createInstance.create(g,"girl" , "Ha Ha","We love Sushi","girl",1.8f);
+//        createInstance.create(g,"sport" , "HaddHa","We love Sushi","girl",1.8f);
         
         
         
         
         //jsut like create method , createGroup can be invoked to create with a group of tags
-        createInstance.createGroup(g,new String[] {"boy","girl","sport"}, "Ha Ha bel","We love Sushi","sport",1.8f);
+        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("boy", "girl", "sport")), "Ha Ha bel","We love Sushi","sport",1.8f);
+        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("boy", "gay", "sport")), "Sa tar par","We love Sushi","sport",1.8f);
+        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("Funny", "DC", "Mavel")), "Mike tel","We love Sushi","sport",1.8f);
         
         
 //        createInstance.create(g, new String[] {"sport","boy"},1.5f, "Really, Yeah","Really, Yeah","sport",2.5f);
