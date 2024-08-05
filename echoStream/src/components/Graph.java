@@ -11,7 +11,8 @@ import utilities.TagComparator;
 
 public class Graph<T extends HasTag, A extends HasPost> {
 
-    private Map<T, PriorityQueue<A>> map = new TreeMap<>(new TagComparator());
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private Map<T, PriorityQueue<A>> map = new TreeMap<>(new TagComparator());
 
     // This function adds a new vertex to the graph
     public void addVertex(T s) {
@@ -30,6 +31,9 @@ public class Graph<T extends HasTag, A extends HasPost> {
         map.get(source).offer(destination); // Using offer to add elements to the priority queue
     }
     
+   
+    
+    
     
     //just for testing
     public void getKey(T source) {
@@ -39,9 +43,10 @@ public class Graph<T extends HasTag, A extends HasPost> {
     }
     
     
-    //setting TagPriority Dynamically
+    //setting TagPopularity Dynamically
     @SuppressWarnings("unchecked")
-	public void setTagPriority(T vertex, float newPriority) {
+	public void setTagPopularity(T vertex, float newPopularity) {
+    	
         if (!map.containsKey(vertex)) {
             System.out.println("Vertex not found.");
             return;
@@ -49,7 +54,11 @@ public class Graph<T extends HasTag, A extends HasPost> {
         
         PriorityQueue<A> edges = map.remove(vertex);
         
-        Tag tempoTag = new Tag(vertex.getTitle(),newPriority);
+        Tag tempoTag = new Tag(vertex.getTitle());
+        tempoTag.setPopularity(newPopularity);
+        GlobalHolder.getInstance().setSharedValue(tempoTag.getTitle(),newPopularity);
+        
+        
         
 
         // Create a new vertex with updated priority
@@ -76,12 +85,9 @@ public class Graph<T extends HasTag, A extends HasPost> {
         // Iterate through the original queue to find and update the element
         for (A e : collection) {
             if (e.getTitle().equals(element)) {
-                // Update the priority of the element (if possible; needs a method to set priority)
-                // For demonstration, we assume a method `updatePriority` exists on the element
-//                updatePriority(e, newPriority);
+              
             	e.setPriority(newPriority);
             
-//                updatedQueue.add((A) new Post(element, e.getCaption(), e.getCaption(), 3f));
                 found = true;
             }
             updatedQueue.add(e);

@@ -9,9 +9,9 @@ public class Tag implements HasTag {
 	private float popularity;
 //	private int tagId;
 	
-	public Tag(String title,float popularity) {
+	public Tag(String title) {
 		this.title = title;
-		this.popularity = popularity;
+		this.popularity = 1f;
 
   }
 	
@@ -23,7 +23,7 @@ public class Tag implements HasTag {
 		return popularity;
 	}
 	
-	public void setPriority(float newPriority) {
+	public void setPopularity(float newPriority) {
 		this.popularity = newPriority;
 		System.out.println("hi");
 	}
