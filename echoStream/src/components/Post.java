@@ -21,6 +21,7 @@ public class Post implements HasPost, Comparable<Post> {
      private int unlikes;
      private int comments;
      private float priority;
+     private popularityHolder popularList;
 
      public Post(String title, String caption, String hashTag,float priority) {
          this.title = title;
@@ -30,6 +31,7 @@ public class Post implements HasPost, Comparable<Post> {
          this.likes = 0;
          this.unlikes = 0;
          this.comments = 0;
+         this.popularList =  new popularityHolder();
      }
      
      @Override
@@ -67,6 +69,8 @@ public class Post implements HasPost, Comparable<Post> {
          return this.priority;
      }
 
+     
+     //UI part
      public JPanel getPostPanel() {
          JPanel postPanel = new JPanel();
          postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
@@ -86,6 +90,7 @@ public class Post implements HasPost, Comparable<Post> {
              public void actionPerformed(ActionEvent e) {
                  likes++;
                  likeButton.setText("Like (" + likes + ")");
+                 popularList.setPopularity("hi", 2f);
              }
          });
          
@@ -95,6 +100,7 @@ unlikeButton.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent e) {
                  unlikes++;
                  unlikeButton.setText("Unlike (" + unlikes + ")");
+                 
              }
          });
 

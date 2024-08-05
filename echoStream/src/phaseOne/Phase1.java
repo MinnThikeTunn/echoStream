@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import components.Graph;
 import components.Post;
 import components.Tag;
+//import components.popularityHolder;
 import utilities.CreateMedia;
 
 
@@ -26,6 +27,10 @@ public class Phase1 {
         // Object of graph is created.
         Graph<Tag,Post> g = new Graph<Tag,Post>();
         CreateMedia createInstance = new CreateMedia();
+//        popularityHolder popularList = new popularityHolder();
+        
+        
+        
         
         
 
@@ -38,11 +43,20 @@ public class Phase1 {
       
         
        
-//        createInstance.create(g, new String[] {"girl"},1.2f, "Wow, it's great","Wow, it's great","sport",1);
-        createInstance.create(g, "girl",1f, "We love Sushi","We love Sushi","sport",2.8f);
+        //function( graph, tag, tagPriority, postName, postTitle, tags , postPriority
+        //tag and tagPriority are composite key,(e.g, if girl tag is 1f it always 1f)
+        createInstance.create(g, "girl",1f, "We love Sushi","We love Sushi","girl",2.8f);
         
-        createInstance.create(g, "boy",3f, "Wtf","We love Sushi","sport",2.8f);
-        createInstance.create(g, "boy",3f, "Sorry","We love Sushi","sport",2.8f);
+        
+        createInstance.create(g, "boy",1f, "Wtf","We love Sushi","boy",2.8f);
+        createInstance.create(g, "boy",1f, "Sorry","We love Sushi","boy",2.8f);
+        createInstance.create(g,"boy" ,1f, "Ha Ha","We love Sushi","boy",1.8f);
+        createInstance.create(g,"girl" ,1f, "Ha Ha","We love Sushi","girl",1.8f);
+        createInstance.create(g,"sport" ,1f, "HaddHa","We love Sushi","girl",1.8f);
+        
+        
+        //jsut like create method , createGroup can be invoked to create with a group of tags
+        createInstance.createGroup(g,new String[] {"boy","girl","sport"} ,1f, "Ha Ha bel","We love Sushi","sport",1.8f);
         
         
 //        createInstance.create(g, new String[] {"sport","boy"},1.5f, "Really, Yeah","Really, Yeah","sport",2.5f);

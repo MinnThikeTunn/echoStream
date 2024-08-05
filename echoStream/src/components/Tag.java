@@ -7,7 +7,7 @@ import interfaces.HasTag;
 public class Tag implements HasTag {
 	public String title;
 	private float popularity;
-	private int tagId;
+//	private int tagId;
 	
 	public Tag(String title,float popularity) {
 		this.title = title;

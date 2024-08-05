@@ -40,7 +40,8 @@ public class Graph<T extends HasTag, A extends HasPost> {
     
     
     //setting TagPriority Dynamically
-    public void setTagPriority(T vertex, float newPriority) {
+    @SuppressWarnings("unchecked")
+	public void setTagPriority(T vertex, float newPriority) {
         if (!map.containsKey(vertex)) {
             System.out.println("Vertex not found.");
             return;

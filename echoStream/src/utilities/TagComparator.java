@@ -13,7 +13,9 @@ public class TagComparator<T extends HasTag> implements Comparator<T> {
 //        if (popularityComparison == 0) {
 //            return t1.getTitle().compareTo(t2.getTitle());
 //        }
-        
+        if (popularityComparison == 0) {
+            return t1.getTitle().compareTo(t2.getTitle());
+        }
         return popularityComparison;
     }
 }

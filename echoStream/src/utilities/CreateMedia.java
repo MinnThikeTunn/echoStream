@@ -20,6 +20,8 @@ public class CreateMedia {
 //        return posts;
 //    }
 	
+	
+	//create method for adding into the map.
 	public void create(Graph<Tag,Post> g,String tags,float popularity,String postName,String postCaption,String hashTag,float postPriority) {
 		 
 			 	
@@ -33,6 +35,24 @@ public class CreateMedia {
 	      
 		
 	}
+	
+	
+	
+	//just like create method, support for creating with a number of tags
+	public void createGroup(Graph<Tag,Post> g,String[] tags,float popularity,String postName,String postCaption,String hashTag,float postPriority) {
+		 
+	 	for(int i = 0; i < tags.length; i++) {
+	 		create(g,tags[i],popularity,postName,postCaption,hashTag,postPriority);
+	 		
+	 	}
+        
+    
+
+    // Create Post objects and add edges to the graph
+    
+  
+
+}
 	
 
 	public static void main(String[] args) {
