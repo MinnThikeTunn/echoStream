@@ -36,10 +36,10 @@ public class Tag implements HasTag {
 	    return Objects.equals(title, tag.title);
 	}
 
-	@Override
-	public int hashCode() {
-	    return Objects.hash(title);
-	}
+//	@Override
+//	public int hashCode() {
+//	    return Objects.hash(title);
+//	}
 
     
     // Comparator for popularity

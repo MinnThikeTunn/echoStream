@@ -1,11 +1,15 @@
 package phaseOne;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import components.GlobalHolder;
+import Singletons.AuthorHolder;
+import Singletons.GlobalHolder;
+import Singletons.MainStorageHolder;
 import components.Graph;
 import components.Post;
 import components.Tag;
+import utilities.Builder;
 //import components.popularityHolder;
 import utilities.CreateMedia;
 
@@ -19,15 +23,22 @@ public class Phase1 {
 //	        System.out.println(this.sharedValues);
 //	        
 //	    };
+	
+	
 	    
 	    
 	 
 	public ArrayList<Post> getRawTempoData() {
-        ArrayList<Post> posts = new ArrayList<>();
+		
+//		  g.getKey("boy");
+//		MainStorage.getInstance().setMainStorage(new ArrayList<String>(Arrays.asList("boy", "girl", "sport")), "Ha Ha bel","We love Sushi","sport",1.8f);
+        ArrayList<Post> posts = MainStorageHolder.getInstance().getMainStorage().getKey("boy");
+        System.out.println(posts);
+        System.out.println(MainStorageHolder.getInstance().getMainStorage());
         
-        for (int i = 1; i <= 100; i++) {
-            posts.add(new Post("Post " + i, "Caption for post " + i, "HashTag" + i,1,new ArrayList<String>(Arrays.asList("boy", "gay", "sport")) ));
-        }
+//        for (int i = 1; i <= 100; i++) {
+//            posts.add(new Post("Post " + i, "Caption for post " + i, "HashTag" + i,1,new ArrayList<String>(Arrays.asList("boy", "gay", "sport")) ));
+//        }
         
         return posts;
     }
@@ -42,8 +53,8 @@ public class Phase1 {
     	
     	
     	Phase1 a = new Phase1();
-    	
-    	
+    	Builder builder = new Builder();
+      	
     	
     	
     	
@@ -54,10 +65,11 @@ public class Phase1 {
     	
 
         // Object of graph is created.
-        Graph<Tag,Post> g = new Graph<Tag,Post>();
+        Graph<Tag,Post> g = MainStorageHolder.getInstance().getMainStorage();
+    	
         CreateMedia createInstance = new CreateMedia();
 //        popularityHolder popularList = new popularityHolder();
-        
+         
         
         
         
@@ -87,24 +99,33 @@ public class Phase1 {
         
         
         //jsut like create method , createGroup can be invoked to create with a group of tags
-        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("boy", "girl", "sport")), "Ha Ha bel","We love Sushi","sport",1.8f);
-        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("boy", "gay", "sport")), "Sa tar par","We love Sushi","sport",1.8f);
-        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("Funny", "DC", "Mavel")), "Mike tel","We love Sushi","sport",1.8f);
-        
-        
+//        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("boy", "girl", "sport")), "Ha Ha bel","We love Sushi","sport",1.8f);
+//        MainStorage.getInstance().setMainStorage(new ArrayList<String>(Arrays.asList("boy", "girl", "sport")), "Ha Ha bel","We love Sushi","sport",1.8f);
+//        System.out.println(MainStorage.getInstance().getMainStorage() + "ha ha");
+//        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("boy", "sport", "gay")), "Sa tar par","We love Sushi","sport",1.8f);
+//        createInstance.createGroup(g,new ArrayList<String>(Arrays.asList("Funny", "DC", "Mavel")), "Mike tel","We love Sushi","sport",1.8f);
+//        
+//        
 //        createInstance.create(g, new String[] {"sport","boy"},1.5f, "Really, Yeah","Really, Yeah","sport",2.5f);
         
 
 
-//        g.getKey(new Tag("boy", 3f));
+//        g.getKey(new Tag("bo  y", 3f));
 //        g.setPriority(new Tag("boy", 3f), "Sorry", 3f);
+        
+        builder.build();
         g.setTagPopularity(new Tag("boy"),0f);
         g.setPriority(new Tag("girl"), "Ha Ha bel", 0.8f);
 //        g.getKey(new Tag("boy", 3f));
         // Printing the graph
         System.out.println("Graph:\n" + g.toString());
+        
+        System.out.println(AuthorHolder.getInstance().getAuthorPosts("Nick") + "author");
 
         // Gives the no of vertices in the graph.
+        
+        System.out.println(MainStorageHolder.getInstance().getMainStorage().getKey("boy") + "yep");
+        System.out.println(g.getKey("Funny"));
         g.getVertexCount();
 
         // Gives the no of edges in the graph.
@@ -122,6 +143,8 @@ public class Phase1 {
 //        // Prints the neighbors of a vertex
 //        g.neighbours("sport");
         a.printValue();
+        
+        System.out.println(GlobalHolder.getInstance().getValue() + "me");
     }
 }
 

@@ -1,4 +1,4 @@
-package components;
+package Singletons;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,12 +6,14 @@ import java.util.Map;
 public class GlobalHolder {
 	 private static GlobalHolder instance;
 	    private Map<String, Float> sharedValues;
+	    private int value;
 
 	    private GlobalHolder() {
 	        sharedValues = new HashMap<>();
+	       
 	    } // Private constructor
 
-	    public static GlobalHolder getInstance() {
+	    public static synchronized GlobalHolder getInstance() {
 	        if (instance == null) {
 	            instance = new GlobalHolder();
 	        }
@@ -20,6 +22,14 @@ public class GlobalHolder {
 
 	    public Float getSharedValue(String key) {
 	        return sharedValues.get(key);
+	    }
+	    
+	    public int getValue() {
+	        return value;
+	    }
+	    
+	    public void setValue(int key) {
+	    	value = key;
 	    }
 
 	    public void setSharedValue(String key, Float value) {

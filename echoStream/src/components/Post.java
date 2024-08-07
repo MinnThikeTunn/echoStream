@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 import javax.swing.BorderFactory;
@@ -12,10 +13,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Singletons.GlobalHolder;
 import interfaces.HasPost;
 
 public class Post implements HasPost, Comparable<Post> {
-	 private String title;
+	private String author; 
+	private String title;
      private String caption;
      private String hashTag;
      private int likes;
@@ -24,7 +28,7 @@ public class Post implements HasPost, Comparable<Post> {
      private float priority;
      private ArrayList<String> tagsGroup;
 
-     public Post(String title, String caption, String hashTag,float priority,ArrayList<String> tagsGroup) {
+     public Post(String title, String caption, String hashTag,float priority,ArrayList<String> tagsGroup, String author) {
          this.title = title;
          this.caption = caption;
          this.hashTag = hashTag;
@@ -33,11 +37,17 @@ public class Post implements HasPost, Comparable<Post> {
          this.unlikes = 0;
          this.comments = 0;
          this.tagsGroup = tagsGroup;
+         this.author = author;
      }
      
      @Override
      public void setPriority(float newPriority) {
          this.priority = newPriority;
+     }
+     
+     
+     public String getAuthor() {
+    	 return this.author;
      }
      
      @Override
@@ -53,12 +63,29 @@ public class Post implements HasPost, Comparable<Post> {
      public int hashCode() {
          return Objects.hash(title, priority);
      }
+     
+     private static int sharedValue;
+
+    
+
+     public static int getSharedValue() {
+         return sharedValue;
+     }
+     
+     
      public String getTitle() {
     	 return this.title;
      }
      
      public String getCaption() {
+    	 
     	 return this.caption;
+     }
+     
+     public ArrayList<String> getTags() {
+    	 ArrayList<String> test = this.tagsGroup;
+    	 Collections.sort(test);
+    	 return this.tagsGroup;
      }
      
      public String getHashTag() {
@@ -87,10 +114,15 @@ public class Post implements HasPost, Comparable<Post> {
 
          likeButton.addActionListener(new ActionListener() {
 
+
 			@Override
              public void actionPerformed(ActionEvent e) {
+				GlobalHolder.getInstance().setValue(1);
+				
                  likes++;
                  likeButton.setText("Like (" + likes + ")");
+                 System.out.println(GlobalHolder.getInstance().getValue());
+                 
              }
          });
          
@@ -100,8 +132,15 @@ unlikeButton.addActionListener(new ActionListener() {
              public void actionPerformed(ActionEvent e) {
                  unlikes++;
                  unlikeButton.setText("Unlike (" + unlikes + ")");
+                 this.setSharedValue(1);
                  
              }
+
+			 public void setSharedValue(int value) {
+         sharedValue = value;
+     }
+
+			
          });
 
          commentButton.addActionListener(new ActionListener() {

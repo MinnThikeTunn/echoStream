@@ -3,8 +3,10 @@ package components;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.TreeMap;
 
+import Singletons.GlobalHolder;
 import interfaces.HasPost;
 import interfaces.HasTag;
 import utilities.TagComparator;
@@ -36,10 +38,36 @@ public class Graph<T extends HasTag, A extends HasPost> {
     
     
     //just for testing
-    public void getKey(T source) {
-    	PriorityQueue<A> collection = map.get(source);
-    	 ArrayList<A> list = new ArrayList<>(collection);
-    	 System.out.println(list.get(1).getPriority());
+    @SuppressWarnings("unchecked")
+	public ArrayList<Post> getKey(String source) {
+        // Ensure map keys are of type T, not directly an ArrayList
+        Set<T> keys = map.keySet();
+
+        // Iterate over the keys
+        for (T key : keys) {
+            if (key instanceof Tag && ((Tag) key).getTitle().equals(source)) {
+                PriorityQueue<A> collection = map.get(key);
+
+                if (collection == null) {
+                    System.out.println("No collection found for key: " + key);
+                   
+                }
+
+               
+
+                ArrayList<A> list = new ArrayList<>(collection);
+                if (list.size() > 0) {
+//                    System.out.println("element tags: " + list.toString());
+                    return (ArrayList<Post>) list;
+                } else {
+                    System.out.println("List does not have enough elements.");
+                }
+               // Exit after processing the found key
+            }
+        }
+
+        System.out.println("No matching key found for source: " + source);
+		return null;
     }
     
     
