@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Singletons.TagPriorityHolder;
-import Singletons.Tester;
 import interfaces.HasPost;
 
 public class Post implements HasPost, Comparable<Post> {
@@ -28,8 +27,10 @@ public class Post implements HasPost, Comparable<Post> {
      private int comments;
      private float priority;
      private ArrayList<String> tagsGroup;
+     private ArrayList<String> L1tagsGroup;
+     private ArrayList<String> L2tagsGroup;
 
-     public Post(String title, String caption, String hashTag,float priority,ArrayList<String> tagsGroup, String author) {
+     public Post(String title, String caption, String hashTag,float priority, String author) {
          this.title = title;
          this.caption = caption;
          this.hashTag = hashTag;
@@ -37,13 +38,40 @@ public class Post implements HasPost, Comparable<Post> {
          this.likes = 0;
          this.unlikes = 0;
          this.comments = 0;
-         this.tagsGroup = tagsGroup;
          this.author = author;
+         this.tagsGroup = new ArrayList<>();
+         this.L1tagsGroup = new ArrayList<>();
+         this.L2tagsGroup = new ArrayList<>();
      }
      
      @Override
      public void setPriority(float newPriority) {
          this.priority = newPriority;
+     }
+     
+     public void addL1tagsGroup(String tags) {
+         this.L1tagsGroup.add(tags);
+     }
+     
+     public void addL2tagsGroup(String tags) {
+         this.L2tagsGroup.add(tags);
+         }
+     
+     
+     public void addTagsGroup(String tags) {
+         this.tagsGroup.add(tags);
+     }
+     
+     public ArrayList<String> getL1Tags() {
+    	 ArrayList<String> test = this.L1tagsGroup;
+    	 Collections.sort(test);
+    	 return this.L1tagsGroup;
+     }
+     
+     public ArrayList<String> getL2Tags() {
+    	 ArrayList<String> test = this.L2tagsGroup;
+    	 Collections.sort(test);
+    	 return this.L2tagsGroup;
      }
      
      
@@ -123,9 +151,7 @@ public class Post implements HasPost, Comparable<Post> {
                  likes++;
                  likeButton.setText("Like (" + likes + ")");
                  System.out.println(TagPriorityHolder.getInstance().getValue());
-                 Tester.getInstance().setValue(title);
-                 titleLabel.setText(Tester.getInstance().getValue());
-                 title = Tester.getInstance().getValue();
+                
                  
              }
          });

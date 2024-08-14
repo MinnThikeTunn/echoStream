@@ -129,7 +129,7 @@ public class Phase1 {
         // Gives the no of vertices in the graph.
         
         System.out.println(MainStorageHolder.getInstance().getMainStorage().getKey("boy") + "yep");
-        System.out.println(g.getKey("Funny"));
+        System.out.println(g.getKey("boy").get(0).getL2Tags() + "new feature");
         g.getVertexCount();
 
         // Gives the no of edges in the graph.

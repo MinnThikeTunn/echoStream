@@ -6,6 +6,7 @@ import components.Post;
 import java.util.ArrayList;
 
 import Singletons.AuthorHolder;
+import Singletons.TagLevelHolder;
 import Singletons.TagPriorityHolder;
 import components.Graph;
 
@@ -21,17 +22,31 @@ public class CreateMedia {
 	
 
 	public void createGroup(Graph<Tag,Post> g,ArrayList<String> tags,String postName,String postCaption,String hashTag,float postPriority,String author) {
-		Post post = new Post(postName, postCaption, hashTag, postPriority, tags,author);
+		Post post = new Post(postName, postCaption, hashTag, postPriority,author);
+		AuthorHolder authors = AuthorHolder.getInstance();
+		TagLevelHolder level = TagLevelHolder.getInstance();
+		TagPriorityHolder priority = TagPriorityHolder.getInstance();
 	 	for(int i = 0; i < tags.size(); i++) {
 	 		Tag tag = new Tag(tags.get(i));
             
             
-            TagPriorityHolder.getInstance().setTagPriority(tags.get(i),1f);
+            priority.setTagPriority(tags.get(i),1f);
+            if(level.getL1tags().contains(tags.get(i))) {
+//            	System.out.println("found in level 1" + ": " + tags.get(i));
+            	post.addL1tagsGroup(tags.get(i));
+            } else if(level.getL2tags().contains(tags.get(i))) {
+//            	System.out.println("found in level 2" + ": " + tags.get(i));
+            	post.addL2tagsGroup(tags.get(i));
+            } else {
+//            	System.out.println("found in level 3" + ": " + tags.get(i));
+            	post.addTagsGroup(tags.get(i));
+            }
+           
             g.addEdge(tag, post);
 	 		
 	 	}
 	 	
-	 	AuthorHolder.getInstance().addPostToAuthor(author, post);
+	 	authors.addPostToAuthor(author, post);
 	 	
         
     
