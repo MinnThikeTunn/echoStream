@@ -2,20 +2,26 @@ package application;
 	
 import Singletons.MainStorageHolder;
 import Singletons.PercentageHolder;
-import components.Percentage;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.*; 
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utilities.Builder;
 
 
 public class Main extends Application {
+	
+	
+	 public void createFeed(VBox newsFeed) {
+		 for (int i = 1; i <= 20; i++) {
+	            newsFeed.getChildren().add(createPost("Post #" + i, "This is the content of post #" + i));
+	        }
+	 }
 	  @Override
 	    public void start(Stage primaryStage) {
 	        // Main container (VBox)
@@ -23,9 +29,8 @@ public class Main extends Application {
 	        newsFeed.setPadding(new Insets(10));
 
 	        // Adding sample posts
-	        for (int i = 1; i <= 20; i++) {
-	            newsFeed.getChildren().add(createPost("Post #" + i, "This is the content of post #" + i));
-	        }
+	        createFeed(newsFeed);
+	        
 
 	        // ScrollPane for scrolling the feed
 	        ScrollPane scrollPane = new ScrollPane(newsFeed);
