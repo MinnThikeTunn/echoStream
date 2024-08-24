@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import Singletons.AuthorHolder;
 import Singletons.TagPriorityHolder;
 import Singletons.MainStorageHolder;
+import Singletons.PercentageHolder;
 import components.Graph;
 import components.Post;
 import components.Tag;
@@ -17,12 +18,6 @@ import utilities.Builder;
 public class Phase1 {
 	
 	 	
-//	    public void display() {
-//	        System.out.println(this.sharedValues);
-//	        
-//	    };
-	
-	
 	    
 	    
 	 
@@ -43,6 +38,8 @@ public class Phase1 {
         
         return posts;
     }
+	
+	
 	
 	 public void printValue() {
 	        System.out.println("Shared Value: " + TagPriorityHolder.getInstance().getAllTagPriority());
@@ -134,6 +131,29 @@ public class Phase1 {
 
         // Gives the no of edges in the graph.
         g.getEdgesCount();
+        
+        
+        System.out.println("Testingggggggggggggggggggggggggggggggg");
+        PercentageHolder holder = PercentageHolder.getInstance();
+       
+        holder.addPercentage(1, "ausic", 2);
+        holder.addPercentage(1, "walar", 2);
+        holder.addPercentage(1, "mushi", 3);
+        holder.addPercentage(1, "sport", 2);
+        holder.addPercentage(1, "blaBla", 3);
+        holder.addPercentage(1, "blaBla", 3);
+        holder.addPercentage(1, "sport", 2);
+        holder.addPercentage(1, "zushi", 3);
+        holder.addPercentage(1, "blaBla", 3);
+        holder.addPercentage(1, "blaBla", 3);
+        
+    
+        
+        holder.getlevel1Tags();
+        holder.getLevel1Percentage();
+        holder.printLevel1Percentage();
+        
+        System.out.println("Testingggggggggggggggggggggggggggggggg");
         
 
         

@@ -62,7 +62,7 @@ public class AuthorHolder {
 	            if (e.getTitle().equals(element)) {
 	              
 	            	e.setPriority(newPriority);
-//	            	AuthorHolder.getInstance().setPriority(e.getAuthor(),e.getTitle(),newPriority);
+
 	            
 	                found = true;
 	            }

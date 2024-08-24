@@ -1,5 +1,8 @@
 package application;
 	
+import Singletons.MainStorageHolder;
+import Singletons.PercentageHolder;
+import components.Percentage;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utilities.Builder;
 
 
 public class Main extends Application {
@@ -40,15 +44,39 @@ public class Main extends Application {
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("Social Media Newsfeed");
 	        primaryStage.show();
+	        
+	        
+	        Builder builder = new Builder();
+	        builder.build();
+	        PercentageHolder holder = PercentageHolder.getInstance();
+	      	MainStorageHolder graph = MainStorageHolder.getInstance();
+	      	holder.addPercentage(1, "boy", 2);
+	        holder.addPercentage(1, "student", 2);
+	        
+	       String level1Tag = holder.getLevel1Percentage().peek().getTag();
+	       //Testing that choosing according to the popularity
+	       System.out.println(graph.getMainStorage().getKey(level1Tag).get(0).getCaption());
+	       
 	    }
+	  
+	  
+	
 
 	    // Method to create a post
 	    private VBox createPost(String title, String content) {
+	    	
+	        
+	        
+	        
+	        
+	        //test to take out three post from graph;
+	        
 	        VBox post = new VBox(5);
 	        post.setPadding(new Insets(10));
 	        post.setStyle("-fx-border-color: lightgrey; -fx-border-width: 1px; -fx-background-color: #f9f9f9;");
 
 	        // Title
+	        
 	        Text titleLabel = new Text(title);
 	        titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 

@@ -1,3 +1,8 @@
+/*
+	This Class is used for Storing the Percentage of each interactions the user made.
+ */
+
+
 package components;
 
 import java.util.ArrayList;
@@ -17,20 +22,27 @@ public class Graph<T extends HasTag, A extends HasPost> {
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	private Map<T, PriorityQueue<A>> map = new TreeMap<>(new TagComparator());
 
+    
+    
     // This function adds a new vertex to the graph
     public void addVertex(T s) {
         if (!map.containsKey(s)) {
+        	//create a map with empty priority queue
             map.put(s, new PriorityQueue<>((a1, a2) -> Float.compare(a1.getPriority(), a2.getPriority())));
         } else {
             System.out.println("Vertex already exists: " + s.getTitle());
         }
     }
 
+    
+    
     // This function adds the edge between source and destination
     public void addEdge(T source, A destination) {
         if (!map.containsKey(source)) {
+        	//For creating a new relation
             addVertex(source);
         }
+        
         map.get(source).offer(destination); // Using offer to add elements to the priority queue
     }
     
@@ -38,7 +50,7 @@ public class Graph<T extends HasTag, A extends HasPost> {
     
     
     
-    //just for testing
+   //Used for get the video queue according to Tag name
     @SuppressWarnings("unchecked")
 	public ArrayList<Post> getKey(String source) {
         // Ensure map keys are of type T, not directly an ArrayList
@@ -58,18 +70,18 @@ public class Graph<T extends HasTag, A extends HasPost> {
 
                 ArrayList<A> list = new ArrayList<>(collection);
                 if (list.size() > 0) {
-//                    System.out.println("element tags: " + list.toString());
                     return (ArrayList<Post>) list;
                 } else {
                     System.out.println("List does not have enough elements.");
                 }
-               // Exit after processing the found key
             }
         }
 
         System.out.println("No matching key found for source: " + source);
 		return null;
     }
+    
+    
     
     
     //setting TagPopularity Dynamically
@@ -117,9 +129,11 @@ public class Graph<T extends HasTag, A extends HasPost> {
         	
 
             if (e.getTitle().equals(element)) {
-            	System.out.print("hifff");
+            	
               
             	e.setPriority(newPriority);
+            	
+            	//Set the new priority for author
             	AuthorHolder.getInstance().setPriority(((Post) e).getAuthor(),e.getTitle(),newPriority);
                 found = true;
             }
