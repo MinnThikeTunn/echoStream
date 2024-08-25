@@ -23,8 +23,12 @@ public class PercentageHolder  {
 	    }
 	    
 	    
-	    public PriorityQueue<Percentage> getLevel1Percentage() {
-	    	return level1Percentage;
+	    public ArrayList<Percentage> getLevel1Percentage() {
+	    
+	    	
+	    	ArrayList<Percentage> tagsList = new ArrayList<>(level1Percentage);
+	        
+	        return tagsList;
 	    }
 	    
 	    public int getCount() {

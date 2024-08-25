@@ -29,6 +29,7 @@ public class Post implements HasPost, Comparable<Post> {
      private ArrayList<String> tagsGroup;
      private ArrayList<String> L1tagsGroup;
      private ArrayList<String> L2tagsGroup;
+     private boolean blind = true;
 
      public Post(String title, String caption, String hashTag,float priority, String author) {
          this.title = title;
@@ -47,6 +48,10 @@ public class Post implements HasPost, Comparable<Post> {
      @Override
      public void setPriority(float newPriority) {
          this.priority = newPriority;
+     }
+     
+     public void setblind(float newPriority) {
+         this.blind = (blind) ? false : true;
      }
      
      public void addL1tagsGroup(String tags) {
@@ -125,71 +130,75 @@ public class Post implements HasPost, Comparable<Post> {
      public float getPriority() {
          return this.priority;
      }
+     
+     
+     
+     
 
      
-     //UI part
-     public JPanel getPostPanel() {
-         JPanel postPanel = new JPanel();
-         postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
-         postPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-         postPanel.setPreferredSize(new Dimension(550, 100));
-
-         JLabel titleLabel = new JLabel(title);
-         JLabel captionLabel = new JLabel(caption);
-         JLabel hashTagLabel = new JLabel(hashTag);
-         JButton likeButton = new JButton("Like (" + likes + ")");
-         JButton unlikeButton = new JButton("Unlike (" + unlikes + ")");
-         JButton commentButton = new JButton("Comment (" + comments + ")");
-
-         likeButton.addActionListener(new ActionListener() {
-
-
-			@Override
-             public void actionPerformed(ActionEvent e) {
-				TagPriorityHolder.getInstance().setValue(1);
-				
-                 likes++;
-                 likeButton.setText("Like (" + likes + ")");
-                 System.out.println(TagPriorityHolder.getInstance().getValue());
-                
-                 
-             }
-         });
-         
-
-unlikeButton.addActionListener(new ActionListener() {
-             @Override
-             public void actionPerformed(ActionEvent e) {
-                 unlikes++;
-                 unlikeButton.setText("Unlike (" + unlikes + ")");
-                 this.setSharedValue(1);
-                 
-             }
-
-			 public void setSharedValue(int value) {
-         sharedValue = value;
-     }
-
-			
-         });
-
-         commentButton.addActionListener(new ActionListener() {
-             @Override
-             public void actionPerformed(ActionEvent e) {
-                 comments++;
-                 commentButton.setText("Comment (" + comments + ")");
-             }
-         });
-
-         postPanel.add(titleLabel);
-         postPanel.add(captionLabel);
-         postPanel.add(hashTagLabel);
-         postPanel.add(likeButton);
-         postPanel.add(unlikeButton);
-         postPanel.add(commentButton);
-
-         return postPanel;
-     }
+//     //UI part
+//     public JPanel getPostPanel() {
+//         JPanel postPanel = new JPanel();
+//         postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
+//         postPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//         postPanel.setPreferredSize(new Dimension(550, 100));
+//
+//         JLabel titleLabel = new JLabel(title);
+//         JLabel captionLabel = new JLabel(caption);
+//         JLabel hashTagLabel = new JLabel(hashTag);
+//         JButton likeButton = new JButton("Like (" + likes + ")");
+//         JButton unlikeButton = new JButton("Unlike (" + unlikes + ")");
+//         JButton commentButton = new JButton("Comment (" + comments + ")");
+//
+//         likeButton.addActionListener(new ActionListener() {
+//
+//
+//			@Override
+//             public void actionPerformed(ActionEvent e) {
+//				TagPriorityHolder.getInstance().setValue(1);
+//				
+//                 likes++;
+//                 likeButton.setText("Like (" + likes + ")");
+//                 System.out.println(TagPriorityHolder.getInstance().getValue());
+//                
+//                 
+//             }
+//         });
+//         
+//
+//unlikeButton.addActionListener(new ActionListener() {
+//             @Override
+//             public void actionPerformed(ActionEvent e) {
+//                 unlikes++;
+//                 unlikeButton.setText("Unlike (" + unlikes + ")");
+//                 this.setSharedValue(1);
+//                 
+//             }
+//
+//			 public void setSharedValue(int value) {
+//         sharedValue = value;
+//     }
+//
+//			
+//         });
+//
+//         commentButton.addActionListener(new ActionListener() {
+//             @Override
+//             public void actionPerformed(ActionEvent e) {
+//                 comments++;
+//                 commentButton.setText("Comment (" + comments + ")");
+//             }
+//         });
+//
+////         postPanel.add(titleLabel);
+////         postPanel.add(captionLabel);
+////         postPanel.add(hashTagLabel);
+////         postPanel.add(likeButton);
+////         postPanel.add(unlikeButton);
+////         postPanel.add(commentButton);
+//
+//         return postPanel;
+//     }
 
 	@Override
 	public int compareTo(Post o) {

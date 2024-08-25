@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class TagLevelHolder {
 	private static TagLevelHolder instance;
-	private ArrayList<String> L1tags = new ArrayList<>(Arrays.asList("sport","music","movie"));
+	private ArrayList<String> L1tags = new ArrayList<>(Arrays.asList("boy","girl","student"));
 	private ArrayList<String> L2tags = new ArrayList<>(Arrays.asList("active","pop","drama"));
 
     private TagLevelHolder() {

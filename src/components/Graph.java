@@ -33,6 +33,14 @@ public class Graph<T extends HasTag, A extends HasPost> {
             System.out.println("Vertex already exists: " + s.getTitle());
         }
     }
+    
+    public  ArrayList<T> getTag() {
+        // Get the Set of keys
+        Set<T> keySet = map.keySet();
+        
+        // Convert the Set to an ArrayList
+        return new ArrayList<>(keySet);
+    }
 
     
     
