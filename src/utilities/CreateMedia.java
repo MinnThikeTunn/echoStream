@@ -37,10 +37,16 @@ public class CreateMedia {
             } else if(level.getL2tags().contains(tags.get(i))) {
 //            	System.out.println("found in level 2" + ": " + tags.get(i));
             	post.addL2tagsGroup(tags.get(i));
-            } else {
-//            	System.out.println("found in level 3" + ": " + tags.get(i));
+            } else if(level.getAuthenTags().contains(tags.get(i))) {
+            	
+            	post.addauthenTagsGroup(tags.get(i));
+            }
+            else {
+            	//System.out.println("found in level 3" + ": " + tags.get(i));
             	post.addTagsGroup(tags.get(i));
             }
+           	
+            
            
             g.addEdge(tag, post);
 	 		

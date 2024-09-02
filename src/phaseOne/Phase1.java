@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import Singletons.AuthorHolder;
+import Singletons.FavoriteAuthorHolder;
 import Singletons.TagPriorityHolder;
 import Singletons.MainStorageHolder;
 import Singletons.PercentageHolder;
@@ -121,7 +122,7 @@ public class Phase1 {
         
         
         
-        System.out.println(sample.getAuthorPosts("john Doe").get(0).getPriority() + "author");
+        System.out.println(sample.getAuthorPosts("Nick").get(0).getPriority() + "author");
         System.out.println(sample.toString());
         // Gives the no of vertices in the graph.
         
@@ -146,12 +147,17 @@ public class Phase1 {
         holder.addPercentage(1, "zushi", 3);
         holder.addPercentage(1, "blaBla", 3);
         holder.addPercentage(1, "blaBla", 3);
+        holder.addPercentage(2, "authen 1", 2);
+        holder.addPercentage(2, "authen 2", 3);
+        holder.addPercentage(1, "authen 3", 3);
+        holder.addPercentage(1, "authen 4", 3);
         
     
         
-        holder.getlevel1Tags();
-        holder.getLevel1Percentage();
+     
+      
         holder.printLevel1Percentage();
+        holder.printLevel2Percentage();
         
         System.out.println("Testingggggggggggggggggggggggggggggggg");
         
@@ -169,6 +175,15 @@ public class Phase1 {
         a.printValue();
         
         System.out.println(TagPriorityHolder.getInstance().getValue() + "me");
+        
+        FavoriteAuthorHolder favorite = FavoriteAuthorHolder.getInstance();
+        favorite.addAuthor("Minn Thike");
+        favorite.addAuthor("Minn");
+        favorite.addAuthor("John Doe");
+        favorite.addAuthor("John Doe");
+        favorite.addAuthor("Minn");
+        favorite.addAuthor("ha");
+        favorite.outPut();
     }
 }
 

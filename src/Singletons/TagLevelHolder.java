@@ -6,8 +6,9 @@ import java.util.Arrays;
 
 public class TagLevelHolder {
 	private static TagLevelHolder instance;
-	private ArrayList<String> L1tags = new ArrayList<>(Arrays.asList("boy","girl","student"));
-	private ArrayList<String> L2tags = new ArrayList<>(Arrays.asList("active","pop","drama"));
+	private ArrayList<String> L1tags = new ArrayList<>(Arrays.asList("sport","art","movie","science","politics"));
+	private ArrayList<String> L2tags = new ArrayList<>(Arrays.asList("football","maleSport","femaleSport","physics","chemistry","technology","digitalArt","inkArt","waterColor","horror","humour"));
+	private ArrayList<String> authenTags = new ArrayList<>(Arrays.asList("boy","girl", "young", "old" , "student"));
 
     private TagLevelHolder() {
     	
@@ -27,6 +28,10 @@ public class TagLevelHolder {
     
     public ArrayList<String> getL2tags() {
     	return L2tags;
+    }
+    
+    public ArrayList<String> getAuthenTags() {
+    	return authenTags;
     }
     
     

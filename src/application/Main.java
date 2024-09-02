@@ -3,9 +3,13 @@ package application;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Singletons.AuthorHolder;
+import Singletons.FavoriteAuthorHolder;
 import Singletons.MainStorageHolder;
 import Singletons.PercentageHolder;
+import Singletons.TagPriorityHolder;
 import components.Graph;
+import components.Percentage;
 import components.Post;
 import components.Tag;
 import javafx.application.Application;
@@ -24,26 +28,134 @@ import utilities.Builder;
 
 public class Main extends Application {
 	
-	public void fetchL1Tag(int count,PercentageHolder percentage,Graph<Tag,Post> store,VBox newsFeed) {
-		
-		float percent = percentage.getLevel1Percentage().get(count).getPercent();
-		
-		if (percent >= 50) {
-            System.out.println("A");
-        }  else if (percent >= 30) {
-            System.out.println("B");
-       
-        } else {
-            System.out.println("F");
-        }
+	public void fetchAuthenTag(int count, PercentageHolder percentage, Graph<Tag, Post> store, VBox newsFeed) {
+	    float percent = percentage.getAuthenPercentage().get(count).getPercent();
+	    int number = 0;
 
-		
-		for(int i = 0; i < 2; i++) {
-			 String level1Tag = percentage.getLevel1Percentage().get(count).getTag();
-			 newsFeed.getChildren().add(createPost(store.getKey(level1Tag).get(i)));
-		 }
-		
+	    if (percent >= 50) {
+	        number = 3;
+	    } else if (percent >= 30) {
+	        number = 2;
+	    } else {
+	        number = 1;
+	    }
+
+	    // Fetch posts based on the calculated number
+	    while (number > 0) {
+	        // Calculate the index to fetch the tag
+	        int index = number - 1;
+	        String authenTag = percentage.getAuthenPercentage().get(count).getTag();
+	        
+	        // Check if the store has the key and if it has enough elements
+	        if (store.getKey(authenTag).size() > index) {
+	            // Add the post to the newsFeed
+	            newsFeed.getChildren().add(createPost(store.getKey(authenTag).get(index)));
+	        } else {
+	            // Exit the loop if there's not enough data for the current index
+	            break;
+	        }
+	        
+	        // Move to the next index
+	        number--;
+	    }
 	}
+	
+	public void fetchlevel1Tag(int count, PercentageHolder percentage, Graph<Tag, Post> store, VBox newsFeed) {
+	    float percent = percentage.getLevel1Percentage().get(count).getPercent();
+	    int number = 0;
+
+	    if (percent >= 50) {
+	        number = 3;
+	    } else if (percent >= 30) {
+	        number = 2;
+	    } else {
+	        number = 1;
+	    }
+
+	    // Fetch posts based on the calculated number
+	    while (number > 0) {
+	        // Calculate the index to fetch the tag
+	        int index = number - 1;
+	        String L1Tag = percentage.getLevel1Percentage().get(count).getTag();
+	        
+	        // Check if the store has the key and if it has enough elements
+	        if (store.getKey(L1Tag).size() > index) {
+	            // Add the post to the newsFeed
+	            newsFeed.getChildren().add(createPost(store.getKey(L1Tag).get(index)));
+	        } else {
+	            // Exit the loop if there's not enough data for the current index
+	            break;
+	        }
+	        
+	        // Move to the next index
+	        number--;
+	    }
+	}
+	
+	public void fetchlevel2Tag(int count, PercentageHolder percentage, Graph<Tag, Post> store, VBox newsFeed) {
+	    float percent = percentage.getLevel2Percentage().get(count).getPercent();
+	    int number = 0;
+
+	    if (percent >= 50) {
+	        number = 3;
+	    } else if (percent >= 30) {
+	        number = 2;
+	    } else {
+	        number = 1;
+	    }
+
+	    // Fetch posts based on the calculated number
+	    while (number > 0) {
+	        // Calculate the index to fetch the tag
+	        int index = number - 1;
+	        String L2Tag = percentage.getLevel2Percentage().get(count).getTag();
+	        
+	        // Check if the store has the key and if it has enough elements
+	        if (store.getKey(L2Tag).size() > index) {
+	            // Add the post to the newsFeed
+	            newsFeed.getChildren().add(createPost(store.getKey(L2Tag).get(index)));
+	        } else {
+	            // Exit the loop if there's not enough data for the current index
+	            break;
+	        }
+	        
+	        // Move to the next index
+	        number--;
+	    }
+	}
+	
+	public void fetchTag(int count, PercentageHolder percentage, Graph<Tag, Post> store, VBox newsFeed) {
+	    float percent = percentage.getLevel3Percentage().get(count).getPercent();
+	    int number = 0;
+
+	    if (percent >= 50) {
+	        number = 3;
+	    } else if (percent >= 30) {
+	        number = 2;
+	    } else {
+	        number = 1;
+	    }
+
+	    // Fetch posts based on the calculated number
+	    while (number > 0) {
+	        // Calculate the index to fetch the tag
+	        int index = number - 1;
+	        String L3Tag = percentage.getLevel3Percentage().get(count).getTag();
+	        
+	        // Check if the store has the key and if it has enough elements
+	        if (store.getKey(L3Tag).size() > index) {
+	            // Add the post to the newsFeed
+	            newsFeed.getChildren().add(createPost(store.getKey(L3Tag).get(index)));
+	        } else {
+	            // Exit the loop if there's not enough data for the current index
+	            break;
+	        }
+	        
+	        // Move to the next index
+	        number--;
+	    }
+	}
+
 	
 public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 		
@@ -58,22 +170,172 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 	 }
 		
 	}
+
+public void tagfetch(ArrayList<Percentage> levelpercent,PercentageHolder percentage,Graph<Tag,Post> store,ArrayList<Post> feeds,ArrayList<Percentage> tagLevel) {
+	int number = 0;
+	 for(int i = 0; i < levelpercent.size()/2; i++) {
+		 float percent = levelpercent.get(i).getPercent();
+		 int finish = 0;
+	 
+		 if (percent >= 50) {
+		        number = 3;
+		    } else if (percent >= 30) {
+		        number = 2;
+		    } else {
+		        number = 1;
+		    }
+		 
+		 while(number > finish) {
+			 
+		       String LevelTag = tagLevel.get(i).getTag();
+		        
+		        // Check if the store has the key and if it has enough elements
+		        if (store.getKey(LevelTag).size() > 0 && finish <= store.getKey(LevelTag).size() - 1) {
+		            // Add the post to the newsFeed
+		        	if (!feeds.contains(store.getKey(LevelTag).get(finish))) {
+		        		feeds.add(store.getKey(LevelTag).get(finish));
+		        	}
+		            
+		        } else {
+		            // Exit the loop if there's not enough data for the current index
+		            break;
+		        }
+		        
+		        // Move to the next index
+		        finish++;
+		 
+		 
+		 
+	 }
+}
+}
+
+public void popularFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Post> feeds2) {
+	// TODO Auto-generated method stub
+	int number = (20 - feeds.size())/4;
+	
+	for(int i = 0; i < 2; i++) { 
+		String FamousTag = store.getTag().get(i).getTitle();
+		 
+		for(int j = 0; j < number; j++) {
+			if (store.getKey(FamousTag).size() > 0 && j <= store.getKey(FamousTag).size() - 1) {
+	            // Add the post to the newsFeed
+				Post manipulate = store.getKey(FamousTag).get(j);
+				if (!feeds2.contains(manipulate)) {
+					feeds2.add(manipulate);
+				}
+				
+			
+	        } else {
+	            // Exit the loop if there's not enough data for the current index
+	            break;
+	        }
+			
+			
+		}
+		System.out.println(number);
+	}
+		
+        
+        // Check if the store has the key and if it has enough elements
+        
+}
+
+public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Post> feeds2,PercentageHolder percentage) {
+	// TODO Auto-generated method stub
+	int number = (20 - feeds.size())/4;
+	
+	for(int i = 0; i < 2; i++) { 
+		String appenTag = percentage.getAuthenPercentage().get(i).getTag();
+		 
+		for (int j = 0; j < number; j++) {
+		    if (store.getKey(appenTag).size() > 0 && j <= store.getKey(appenTag).size() - 1) {
+		        Post manipulate = store.getKey(appenTag).get(j);
+		        
+		        // Check if the post is already in feeds2
+		        if (!feeds2.contains(manipulate)) {
+		            // Add the post to the newsFeed if it's not already present
+		            feeds2.add(manipulate);
+		        }
+		    } else {
+		        // Exit the loop if there's not enough data for the current index
+		        break;
+		    }
+		}
+		FavoriteAuthorHolder author = FavoriteAuthorHolder.getInstance();
+		AuthorHolder au = AuthorHolder.getInstance();
+		
+		for(int z = 0; z < 2; z++) {
+			feeds2.add(au.getAuthorPosts(author.getAuthor()).get(z));
+		}
+		
+		
+//		System.out.println(au.toString());
+//		System.out.println(author.getAuthor());
+	}
+		
+        
+        // Check if the store has the key and if it has enough elements
+        
+}
+
+
+
+ public void fetchFromtags(PercentageHolder percentage,Graph<Tag,Post> store,ArrayList<Post> feeds) {
+	 ArrayList<Percentage> l3percent = percentage.getLevel3Percentage();
+	 ArrayList<Percentage> l2percent = percentage.getLevel2Percentage();
+	 ArrayList<Percentage> l1percent = percentage.getLevel1Percentage();
+	 
+	tagfetch(l3percent,percentage,store,feeds,percentage.getLevel3Percentage());
+	tagfetch(l2percent,percentage,store,feeds,percentage.getLevel2Percentage());
+	tagfetch(l1percent,percentage,store,feeds,percentage.getLevel1Percentage());
+	
+	 
+	
+	 
+	 System.out.println(feeds);
+	 
+	 
+//	    int number = 0;
+//
+//	    if (percent >= 50) {
+//	        number = 3;
+//	    } else if (percent >= 30) {
+//	        number = 2;
+//	    } else {
+//	        number = 1;
+//	    }
+ }
 	
 	
-	 public void createFeed(VBox newsFeed) {
+	
+
+	public void createFeed(VBox newsFeed) {
 		 PercentageHolder percentage = PercentageHolder.getInstance();
 		 Graph<Tag,Post> store = MainStorageHolder.getInstance().getMainStorage();
 		 Builder builder = new Builder();
+		 ArrayList<Post> feeds = new ArrayList<>();
+		 ArrayList<Post> feeds2 = new ArrayList<>();
+
 		 builder.build();
 		 
 		 
+		 fetchFromtags(percentage,store,feeds);
+		 popularFetch(feeds,store,feeds2);
+		 appenFetch(feeds,store,feeds2,percentage);
+		 for(Post feed: feeds) {
+			 newsFeed.getChildren().add(createPost(feed));
+		 }
 		 
-		 fetchL1Tag(0,percentage,store,newsFeed);
-		 fetchL1Tag(1,percentage,store,newsFeed);
+		 for(Post feed: feeds2) {
+			 newsFeed.getChildren().add(createPost(feed));
+		 }
+//		 fetchAuthenTag(0,percentage,store,newsFeed);
+//		 fetchAuthenTag(1,percentage,store,newsFeed);
 		 
 		 
-		 fetchFamousTag(1,store,newsFeed);
-		 fetchFamousTag(2,store,newsFeed);
+//		 fetchFamousTag(1,store,newsFeed);
+//		 fetchFamousTag(2,store,newsFeed);
 		 
 		 
 	
@@ -88,8 +350,46 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 		 
 	 }
 	 
-	 public void AddPerferenceL1(ArrayList<String> tag,PercentageHolder percentage) {
-		 for(String t : tag)  percentage.addPercentage(1, t, 1);
+	 public void AuthFetch(PercentageHolder percentage,Graph<Tag,Post> store,VBox newsFeed) {
+		 int number = 10;
+		 Builder builder = new Builder();
+		 builder.build();
+		 ArrayList<Post> feeds = new ArrayList<>();
+		 ArrayList<Percentage> authenpercent = percentage.getAuthenPercentage();
+		 int finish = number/authenpercent.size();
+		 for(int i = 0; i < authenpercent.size(); i++) {
+			 String LevelTag = authenpercent.get(i).getTag();
+			 for(int j = 0; j < finish; j++) {
+				 if (store.getKey(LevelTag).size() > 0 && finish <= store.getKey(LevelTag).size() - 1) {
+			            // Add the post to the newsFeed
+					 if (!feeds.contains(store.getKey(LevelTag).get(j))) {
+						 feeds.add(store.getKey(LevelTag).get(j));
+					 }
+			            
+			        } else {
+			            // Exit the loop if there's not enough data for the current index
+			            break;
+			        }
+			 }
+		 }
+		 
+		 for(Post feed: feeds) {
+			 newsFeed.getChildren().add(createPost(feed));
+		 }
+		 
+		 
+		 
+		 
+		 
+	 
+		 
+	 }
+	 
+	 public void AddPerferenceAuthen(ArrayList<String> tag,PercentageHolder percentage,Graph<Tag,Post> store,VBox newsFeed) {
+		 for(String t : tag)  percentage.addPercentage(4, t, 1);
+		 AuthFetch(percentage,store,newsFeed);
+//		 fetchAuthenTag(0,percentage,store,newsFeed);
+//		 fetchAuthenTag(1,percentage,store,newsFeed);
 	 }
 	  @Override
 	    public void start(Stage primaryStage) {
@@ -97,22 +397,23 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 		  //algorithm phase
 		  PercentageHolder percentage = PercentageHolder.getInstance();
 		  MainStorageHolder storage = MainStorageHolder.getInstance();
-		  
+		  Graph<Tag,Post> store = MainStorageHolder.getInstance().getMainStorage();
+		  VBox newsFeed = new VBox(10);
 		  
 		  //
 		  
 		
-	      AddPerferenceL1(new ArrayList<>(Arrays.asList("boy","young","student")),percentage);
+	      AddPerferenceAuthen(new ArrayList<>(Arrays.asList("girl","young")),percentage,store,newsFeed);
 	      
 	     
 		  
 	        // Main container (VBox)
-	        VBox newsFeed = new VBox(10);
+	       
 	        newsFeed.setPadding(new Insets(10));
 	        
 	        
 	        // Adding sample posts
-	        createFeed(newsFeed);
+//	        createFeed(newsFeed);
 	        
 
 	        // ScrollPane for scrolling the feed
@@ -152,6 +453,9 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 	    }
 	  
 	  
+	 
+	  
+	  
 	
 
 	    // Method to create a post
@@ -164,8 +468,9 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 	        //test to take out three post from graph;
 	        
 	        VBox main = new VBox(5);
-	        float plusLike = (float)1e-10;
-	        float plusComment = (float)1e-10;
+//	        float plusLike = (float)1e-10;
+	        float plusLike = 1;
+	        float plusComment = (float)5e-10;
 	        PercentageHolder percentage = PercentageHolder.getInstance();
 	        float unlike = 1;
 	        main.setPadding(new Insets(10));
@@ -202,11 +507,13 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 	        
 	        likeButton.setOnAction(new EventHandler<ActionEvent>() {
 	            private boolean isRed = false; 
-	            
+	            MainStorageHolder holder = MainStorageHolder.getInstance();
+	            TagPriorityHolder tagPriority = TagPriorityHolder.getInstance();
+	            FavoriteAuthorHolder author = FavoriteAuthorHolder.getInstance();
 
 				@Override
 	            public void handle(ActionEvent event) {
-					System.out.println(event);
+				
 	            	 if (isRed) {
 	                     likeButton.setStyle(""); // none
 	                 } else {
@@ -217,19 +524,56 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 	                 isRed = !isRed;
 	                 
 	                 float curretPriority = post.getPriority();
-	                 System.out.println(post.getL1Tags());
+	                 ArrayList<String> currentTagL1Priority = post.getL1Tags();
+	                 ArrayList<String> currentTagL2Priority = post.getL2Tags();
+	                 ArrayList<String> currentTagPriority = post.getTags();
+	                 
+	                 for(String tag: currentTagL1Priority) {
+	                	 holder.getMainStorage().setTagPopularity(new Tag(tag),tagPriority.getTagPriority(tag) + plusLike);
+	                	
+	                	 holder.getMainStorage().setPriority(new Tag(tag,TagPriorityHolder.getInstance().getTagPriority(tag)), post.getTitle(), curretPriority + plusLike);
+
+	                	 
+	                	 percentage.addPercentage(1, tag, 1);
+	                
+	                 }
+	                 
+	                 for(String tag: currentTagL2Priority) {
+	                	 holder.getMainStorage().setTagPopularity(new Tag(tag),tagPriority.getTagPriority(tag) + plusLike);
+	                	 
+	                	 holder.getMainStorage().setPriority(new Tag(tag,TagPriorityHolder.getInstance().getTagPriority(tag)), post.getTitle(), curretPriority + plusLike);
+
+	                	 percentage.addPercentage(2, tag, 1);
+	                
+	                 }
+	                 
+	                 for(String tag: currentTagPriority) {
+	                	 holder.getMainStorage().setTagPopularity(new Tag(tag),tagPriority.getTagPriority(tag) + plusLike);
+	                	 holder.getMainStorage().setPriority(new Tag(tag,TagPriorityHolder.getInstance().getTagPriority(tag)), post.getTitle(), curretPriority + plusLike);
+
+	                	 percentage.addPercentage(3, tag, 1);                	 
+	                 }
+	                 
+	                 author.addAuthor(post.getAuthor());
+	                 
+//	                 System.out.println(holder.getMainStorage().toString());
+//	                 System.out.println("level 1 tag is" + post.getL1Tags());
+//	                 System.out.println("level 1 tag is" + post.getL2Tags());
+//	                
 	                 
 
 	                 // Print a message to the console
-	                 post.setPriority(curretPriority + plusLike);
-	                 System.out.println(post.getPriority());
+//	                 System.out.println(post.getTitle());
+//	                
+//
+//	                 post.setPriority(curretPriority + plusLike);
+//	                 System.out.println(post.getPriority());
+//	                 MainStorageHolder.getInstance().getMainStorage().setPriority(new Tag("young",TagPriorityHolder.getInstance().getTagPriority("young")), "real real", 100f);
+
 	                 
+	                
 	                 
-	                 for(String tag : post.getL1Tags()) {
-	                	 percentage.addPercentage(1, tag, 1);
-	                 }
-	                 
-	                 percentage.printLevel1Percentage();
+	                 percentage.printLevel2Percentage();
 	            }
 	        });
 	        
@@ -260,7 +604,10 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 	        });
 	        
 	        commentButton.setOnAction(new EventHandler<ActionEvent>() {
-	        	private boolean isRed = false;
+	        	private boolean isRed = false; 
+	            MainStorageHolder holder = MainStorageHolder.getInstance();
+	            TagPriorityHolder tagPriority = TagPriorityHolder.getInstance();
+	            FavoriteAuthorHolder author = FavoriteAuthorHolder.getInstance();
 	            @Override
 	            public void handle(ActionEvent event) {
 	            	
@@ -274,12 +621,54 @@ public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
 	                 isRed = !isRed;
 	                 
 	                 float curretPriority = post.getPriority();
-	                 System.out.println(curretPriority);
+	                 ArrayList<String> currentTagL1Priority = post.getL1Tags();
+	                 ArrayList<String> currentTagL2Priority = post.getL2Tags();
+	                 ArrayList<String> currentTagPriority = post.getTags();
+	                 
+	                 for(String tag: currentTagL1Priority) {
+	                	 holder.getMainStorage().setTagPopularity(new Tag(tag),tagPriority.getTagPriority(tag) + plusComment);
+	                	
+	                	 holder.getMainStorage().setPriority(new Tag(tag,TagPriorityHolder.getInstance().getTagPriority(tag)), post.getTitle(), curretPriority + plusComment);
+
+	                	 
+	                	 percentage.addPercentage(1, tag, 2);
+	                
+	                 }
+	                 
+	                 for(String tag: currentTagL2Priority) {
+	                	 holder.getMainStorage().setTagPopularity(new Tag(tag),tagPriority.getTagPriority(tag) + plusComment);
+	                	 
+	                	 holder.getMainStorage().setPriority(new Tag(tag,TagPriorityHolder.getInstance().getTagPriority(tag)), post.getTitle(), curretPriority + plusComment);
+
+	                	 percentage.addPercentage(2, tag, 2);
+	                
+	                 }
+	                 
+	                 for(String tag: currentTagPriority) {
+	                	 holder.getMainStorage().setTagPopularity(new Tag(tag),tagPriority.getTagPriority(tag) + plusComment);
+	                	 holder.getMainStorage().setPriority(new Tag(tag,TagPriorityHolder.getInstance().getTagPriority(tag)), post.getTitle(), curretPriority + plusComment);
+
+	                	 percentage.addPercentage(3, tag, 2);                	 
+	                 }
+	                 author.addAuthor(post.getAuthor());
+	                 System.out.println(holder.getMainStorage().toString());
+//	                 System.out.println("level 1 tag is" + post.getL1Tags());
+//	                 System.out.println("level 1 tag is" + post.getL2Tags());
+//	                
 	                 
 
 	                 // Print a message to the console
-	                 post.setPriority(curretPriority + plusComment);
-	                 System.out.println(post.getPriority());
+//	                 System.out.println(post.getTitle());
+//	                
+//
+//	                 post.setPriority(curretPriority + plusLike);
+//	                 System.out.println(post.getPriority());
+//	                 MainStorageHolder.getInstance().getMainStorage().setPriority(new Tag("young",TagPriorityHolder.getInstance().getTagPriority("young")), "real real", 100f);
+
+	                 
+	                
+	                 
+	                 percentage.printLevel2Percentage();
 	            }
 	        });
 

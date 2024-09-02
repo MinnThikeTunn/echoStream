@@ -28,7 +28,7 @@ public class Graph<T extends HasTag, A extends HasPost> {
     public void addVertex(T s) {
         if (!map.containsKey(s)) {
         	//create a map with empty priority queue
-            map.put(s, new PriorityQueue<>((a1, a2) -> Float.compare(a1.getPriority(), a2.getPriority())));
+            map.put(s, new PriorityQueue<>((a1, a2) -> Float.compare(a2.getPriority(), a1.getPriority())));
         } else {
             System.out.println("Vertex already exists: " + s.getTitle());
         }
@@ -128,7 +128,7 @@ public class Graph<T extends HasTag, A extends HasPost> {
         }
 
         // Create a temporary priority queue to hold the updated elements
-        PriorityQueue<A> updatedQueue = new PriorityQueue<>((a1, a2) -> Float.compare(a1.getPriority(), a2.getPriority()));
+        PriorityQueue<A> updatedQueue = new PriorityQueue<>((a1, a2) -> Float.compare(a2.getPriority(), a1.getPriority()));
         
         boolean found = false;
 

@@ -29,6 +29,7 @@ public class Post implements HasPost, Comparable<Post> {
      private ArrayList<String> tagsGroup;
      private ArrayList<String> L1tagsGroup;
      private ArrayList<String> L2tagsGroup;
+     private ArrayList<String> authenTagsGroup;
      private boolean blind = true;
 
      public Post(String title, String caption, String hashTag,float priority, String author) {
@@ -43,6 +44,7 @@ public class Post implements HasPost, Comparable<Post> {
          this.tagsGroup = new ArrayList<>();
          this.L1tagsGroup = new ArrayList<>();
          this.L2tagsGroup = new ArrayList<>();
+         this.authenTagsGroup = new ArrayList<>();
      }
      
      @Override
@@ -65,6 +67,10 @@ public class Post implements HasPost, Comparable<Post> {
      
      public void addTagsGroup(String tags) {
          this.tagsGroup.add(tags);
+     }
+     
+     public void addauthenTagsGroup(String tags) {
+         this.authenTagsGroup.add(tags);
      }
      
      public ArrayList<String> getL1Tags() {
@@ -206,6 +212,7 @@ public class Post implements HasPost, Comparable<Post> {
 		return Float.compare(o.priority, this.priority);
 	}
 
+	
 
 
 
