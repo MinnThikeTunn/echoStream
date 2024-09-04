@@ -21,8 +21,8 @@ public class CreateMedia {
 	
 	
 
-	public void createGroup(Graph<Tag,Post> g,ArrayList<String> tags,String postName,String postCaption,String hashTag,float postPriority,String author) {
-		Post post = new Post(postName, postCaption, hashTag, postPriority,author);
+	public void createGroup(Graph<Tag,Post> g,ArrayList<String> tags,String postName,String postCaption,float postPriority,String author) {
+		Post post = new Post(postName, postCaption, postPriority,author);
 		AuthorHolder authors = AuthorHolder.getInstance();
 		TagLevelHolder level = TagLevelHolder.getInstance();
 		TagPriorityHolder priority = TagPriorityHolder.getInstance();

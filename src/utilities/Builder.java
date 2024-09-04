@@ -35,25 +35,25 @@ public class Builder {
 //        g.setMainStorage(new ArrayList<String>(Arrays.asList("music","pop")), "real Testing","We love Sushi","sport",1.8f,"Nick");
         
         
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","football","boy","young","goal")), "Man United","Sport","sport",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","football","young","goal")), "Chelsea","Sport.2","sport.2",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","football","boy","girl","young","nice")), "Sheffield","Sport.3","sport.3",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","maleSport","boy","onlyFor")), "Swimming","Sport2.1","sport2",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","maleSport","young","Man united")), "Running","Sport2.2","sport2.1",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","maleSport","boy","Haaa")), "Tennis","Sport2.3","sport2.2",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","femaleSport","girl","so beautiful")), "Swimming(female)","Sport3.1","sport3",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","femaleSport","girl","Whyy")), "Running(female)","Sport3.2","sport3.1",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","femaleSport","girl","Haaaa")), "Tennis(female)","Sport3.3","sport3.2",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","football","boy","young","goal")), "Man United","Sport",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","football","young","goal")), "Chelsea","Sport.2",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","football","boy","girl","young","nice")), "Sheffield","Sport.3",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","maleSport","boy","onlyFor")), "Swimming","Sport2.1",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","maleSport","young","Man united")), "Running","Sport2.2",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","maleSport","boy","Haaa")), "Tennis","Sport2.3",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","femaleSport","girl","so beautiful")), "Swimming(female)","Sport3.1",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","femaleSport","girl","Whyy")), "Running(female)","Sport3.2",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("sport","femaleSport","girl","Haaaa")), "Tennis(female)","Sport3.3",1.8f,"Nick");
         
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","physics","boy","young","quantum")), "Eistein","Science","sport",1.8f,"Nickee");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","physics","young","relativity")), "Eistein2","Science.1","sport.2",1.8f,"Nickee");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","chemistry","boy","girl","young","Domain")), "Furry","Science2","sport.3",1.8f,"Nickee");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","chemistry","boy","Organic")), "Organic Chemistry","Science2.1","sport2",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","technology","young","computer")), "Java","Science3","sport2.1",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","technology","boy","hacking")), "Hacker","Science3.1","sport2.2",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","technology","girl","hacking","OMG")), "WTX","Science3.2","sport3",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("art","digitalArt","girl","onePaint")), "aRTIST","Art1","sport3.1",1.8f,"Nick");
-        g.setMainStorage(new ArrayList<String>(Arrays.asList("art","digitalArt","girl","twoPaint")), "CREATIVEIY","Art2","sport3.2",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","physics","boy","young","quantum")), "Eistein","Science",1.8f,"Nickee");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","physics","young","relativity")), "Eistein2","Science.1",1.8f,"Nickee");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","chemistry","boy","girl","young","Domain")), "Furry","Science2",1.8f,"Nickee");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","chemistry","boy","Organic")), "Organic Chemistry","Science2.1",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","technology","young","computer")), "Java","Science3",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","technology","boy","hacking")), "Hacker","Science3.1",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("science","technology","girl","hacking","OMG")), "WTX","Science3.2",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("art","digitalArt","girl","onePaint")), "aRTIST","Art1",1.8f,"Nick");
+        g.setMainStorage(new ArrayList<String>(Arrays.asList("art","digitalArt","girl","twoPaint")), "CREATIVEIY","Art2",1.8f,"Nick");
 
 		 
 	 	

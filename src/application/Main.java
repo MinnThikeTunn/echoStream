@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import Singletons.AuthorHolder;
+import Singletons.DupliHolder;
 import Singletons.FavoriteAuthorHolder;
 import Singletons.MainStorageHolder;
 import Singletons.PercentageHolder;
@@ -60,119 +61,17 @@ public class Main extends Application {
 	    }
 	}
 	
-	public void fetchlevel1Tag(int count, PercentageHolder percentage, Graph<Tag, Post> store, VBox newsFeed) {
-	    float percent = percentage.getLevel1Percentage().get(count).getPercent();
-	    int number = 0;
-
-	    if (percent >= 50) {
-	        number = 3;
-	    } else if (percent >= 30) {
-	        number = 2;
-	    } else {
-	        number = 1;
-	    }
-
-	    // Fetch posts based on the calculated number
-	    while (number > 0) {
-	        // Calculate the index to fetch the tag
-	        int index = number - 1;
-	        String L1Tag = percentage.getLevel1Percentage().get(count).getTag();
-	        
-	        // Check if the store has the key and if it has enough elements
-	        if (store.getKey(L1Tag).size() > index) {
-	            // Add the post to the newsFeed
-	            newsFeed.getChildren().add(createPost(store.getKey(L1Tag).get(index)));
-	        } else {
-	            // Exit the loop if there's not enough data for the current index
-	            break;
-	        }
-	        
-	        // Move to the next index
-	        number--;
-	    }
-	}
 	
-	public void fetchlevel2Tag(int count, PercentageHolder percentage, Graph<Tag, Post> store, VBox newsFeed) {
-	    float percent = percentage.getLevel2Percentage().get(count).getPercent();
-	    int number = 0;
-
-	    if (percent >= 50) {
-	        number = 3;
-	    } else if (percent >= 30) {
-	        number = 2;
-	    } else {
-	        number = 1;
-	    }
-
-	    // Fetch posts based on the calculated number
-	    while (number > 0) {
-	        // Calculate the index to fetch the tag
-	        int index = number - 1;
-	        String L2Tag = percentage.getLevel2Percentage().get(count).getTag();
-	        
-	        // Check if the store has the key and if it has enough elements
-	        if (store.getKey(L2Tag).size() > index) {
-	            // Add the post to the newsFeed
-	            newsFeed.getChildren().add(createPost(store.getKey(L2Tag).get(index)));
-	        } else {
-	            // Exit the loop if there's not enough data for the current index
-	            break;
-	        }
-	        
-	        // Move to the next index
-	        number--;
-	    }
-	}
 	
-	public void fetchTag(int count, PercentageHolder percentage, Graph<Tag, Post> store, VBox newsFeed) {
-	    float percent = percentage.getLevel3Percentage().get(count).getPercent();
-	    int number = 0;
-
-	    if (percent >= 50) {
-	        number = 3;
-	    } else if (percent >= 30) {
-	        number = 2;
-	    } else {
-	        number = 1;
-	    }
-
-	    // Fetch posts based on the calculated number
-	    while (number > 0) {
-	        // Calculate the index to fetch the tag
-	        int index = number - 1;
-	        String L3Tag = percentage.getLevel3Percentage().get(count).getTag();
-	        
-	        // Check if the store has the key and if it has enough elements
-	        if (store.getKey(L3Tag).size() > index) {
-	            // Add the post to the newsFeed
-	            newsFeed.getChildren().add(createPost(store.getKey(L3Tag).get(index)));
-	        } else {
-	            // Exit the loop if there's not enough data for the current index
-	            break;
-	        }
-	        
-	        // Move to the next index
-	        number--;
-	    }
-	}
-
 	
-public void fetchFamousTag(int count,Graph<Tag,Post> store,VBox newsFeed) {
-		
-		
-		
-		
+	
+	
 
-		
-	for(int i = 0; i < 2; i++) {
-		 String FamousTag = store.getTag().get(count).getTitle();
-		 newsFeed.getChildren().add(createPost(store.getKey(FamousTag).get(i)));
-	 }
-		
-	}
 
 public void tagfetch(ArrayList<Percentage> levelpercent,PercentageHolder percentage,Graph<Tag,Post> store,ArrayList<Post> feeds,ArrayList<Percentage> tagLevel) {
 	int number = 0;
+	DupliHolder dupli = DupliHolder.getInstance();
+	
 	 for(int i = 0; i < levelpercent.size()/2; i++) {
 		 float percent = levelpercent.get(i).getPercent();
 		 int finish = 0;
@@ -192,9 +91,17 @@ public void tagfetch(ArrayList<Percentage> levelpercent,PercentageHolder percent
 		        // Check if the store has the key and if it has enough elements
 		        if (store.getKey(LevelTag).size() > 0 && finish <= store.getKey(LevelTag).size() - 1) {
 		            // Add the post to the newsFeed
-		        	if (!feeds.contains(store.getKey(LevelTag).get(finish))) {
-		        		feeds.add(store.getKey(LevelTag).get(finish));
+		        	if (!dupli.getdupliTags().contains(store.getKey(LevelTag).get(finish).getTitle())) {
+		        		if(store.getKey(LevelTag).get(finish).getBlind() == 0) {
+		        			feeds.add(store.getKey(LevelTag).get(finish));
+		        			store.getKey(LevelTag).get(finish).plusBlind();
+		        		} else {
+		        			store.getKey(LevelTag).get(finish).minusBlindPerOne();
+		        			number++;
+		        		}
+		        		dupli.addDupliTags(store.getKey(LevelTag).get(finish).getTitle());
 		        	}
+		        	finish++;
 		            
 		        } else {
 		            // Exit the loop if there's not enough data for the current index
@@ -202,6 +109,20 @@ public void tagfetch(ArrayList<Percentage> levelpercent,PercentageHolder percent
 		        }
 		        
 		        // Move to the next index
+		        
+//		        if (!dupli.getdupliTags().contains(manipulate.getTitle())) {
+//			    	System.out.println(manipulate.getBlind());
+//			    	if(manipulate.getBlind() == 0) {
+//			    		feeds2.add(manipulate);
+//			    		manipulate.plusBlind();
+//			    	} else {
+//			    		manipulate.minusBlindPerOne();
+//			    		number++;
+//			    	}
+//			        
+//			        dupli.addDupliTags(manipulate.getTitle());
+//			       
+//			    }
 		        finish++;
 		 
 		 
@@ -213,27 +134,32 @@ public void tagfetch(ArrayList<Percentage> levelpercent,PercentageHolder percent
 public void popularFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Post> feeds2) {
 	// TODO Auto-generated method stub
 	int number = (20 - feeds.size())/4;
+	DupliHolder dupli = DupliHolder.getInstance();
 	
 	for(int i = 0; i < 2; i++) { 
 		String FamousTag = store.getTag().get(i).getTitle();
 		 
-		for(int j = 0; j < number; j++) {
-			if (store.getKey(FamousTag).size() > 0 && j <= store.getKey(FamousTag).size() - 1) {
-	            // Add the post to the newsFeed
-				Post manipulate = store.getKey(FamousTag).get(j);
-				if (!feeds2.contains(manipulate)) {
-					feeds2.add(manipulate);
-				}
-				
-			
-	        } else {
-	            // Exit the loop if there's not enough data for the current index
-	            break;
-	        }
-			
-			
+		int j = 0;
+		while (j < number && store.getKey(FamousTag).size() > 0 && j <= store.getKey(FamousTag).size() - 1) {
+		    // Add the post to the newsFeed
+		    Post manipulate = store.getKey(FamousTag).get(j);
+		    if (!dupli.getdupliTags().contains(manipulate.getTitle())) {
+		    	System.out.println(manipulate.getBlind());
+		    	if(manipulate.getBlind() == 0) {
+		    		feeds2.add(manipulate);
+		    		manipulate.plusBlind();
+		    	} else {
+		    		manipulate.minusBlindPerOne();
+		    		number++;
+		    	}
+		        
+		        dupli.addDupliTags(manipulate.getTitle());
+		       
+		    }
+		    
+		    j++;
 		}
-		System.out.println(number);
+		
 	}
 		
         
@@ -244,24 +170,41 @@ public void popularFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<P
 public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Post> feeds2,PercentageHolder percentage) {
 	// TODO Auto-generated method stub
 	int number = (20 - feeds.size())/4;
+	DupliHolder dupli = DupliHolder.getInstance();
 	
 	for(int i = 0; i < 2; i++) { 
 		String appenTag = percentage.getAuthenPercentage().get(i).getTag();
 		 
-		for (int j = 0; j < number; j++) {
+		int j = 0;
+		while (j < number) {
+			
 		    if (store.getKey(appenTag).size() > 0 && j <= store.getKey(appenTag).size() - 1) {
 		        Post manipulate = store.getKey(appenTag).get(j);
-		        
+
 		        // Check if the post is already in feeds2
-		        if (!feeds2.contains(manipulate)) {
-		            // Add the post to the newsFeed if it's not already present
-		            feeds2.add(manipulate);
+		        System.out.println(dupli.getdupliTags());
+		        if (!dupli.getdupliTags().contains(manipulate.getTitle())) {
+		            // Add the post to feeds2 if it's not already present
+		        	if(manipulate.getBlind() == 0) {
+		        		feeds2.add(manipulate);
+			    		manipulate.plusBlind();
+			    	} else {
+			    		manipulate.minusBlindPerOne();
+			    		number++;
+			    	}
+			        
+			        dupli.addDupliTags(manipulate.getTitle());
+		            
 		        }
+
+		        j++; // Increment the index after processing the current element
 		    } else {
 		        // Exit the loop if there's not enough data for the current index
 		        break;
 		    }
 		}
+		
+		System.out.println(store.toString());
 		FavoriteAuthorHolder author = FavoriteAuthorHolder.getInstance();
 		AuthorHolder au = AuthorHolder.getInstance();
 		
@@ -316,8 +259,11 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		 Builder builder = new Builder();
 		 ArrayList<Post> feeds = new ArrayList<>();
 		 ArrayList<Post> feeds2 = new ArrayList<>();
-
-		 builder.build();
+		 
+		 if(store.getVertexCount() == 0) {
+			 builder.build();
+		 }
+		 
 		 
 		 
 		 fetchFromtags(percentage,store,feeds);
@@ -428,7 +374,9 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 	        	
 	            @Override
 	            public void handle(ActionEvent event) {
+	            	DupliHolder dupli = DupliHolder.getInstance();
 	            	newsFeed.getChildren().clear();
+	            	dupli.clearDupliTags();
 //	            	AddPerferenceL1(new ArrayList<>(Arrays.asList("boy","student","student")),percentage);
 	            	createFeed(newsFeed);
 	            }

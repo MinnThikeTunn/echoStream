@@ -159,8 +159,8 @@ public class Graph<T extends HasTag, A extends HasPost> {
     }
 
     // This function gives the count of vertices
-    public void getVertexCount() {
-        System.out.println("The graph has " + map.keySet().size() + " vertices.");
+    public int getVertexCount() {
+        return map.keySet().size();
     }
 
     // This function gives the count of edges

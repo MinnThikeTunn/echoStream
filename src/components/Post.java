@@ -30,12 +30,11 @@ public class Post implements HasPost, Comparable<Post> {
      private ArrayList<String> L1tagsGroup;
      private ArrayList<String> L2tagsGroup;
      private ArrayList<String> authenTagsGroup;
-     private boolean blind = true;
+     private int blind = 0;
 
-     public Post(String title, String caption, String hashTag,float priority, String author) {
+     public Post(String title, String caption,float priority, String author) {
          this.title = title;
          this.caption = caption;
-         this.hashTag = hashTag;
          this.priority = priority;
          this.likes = 0;
          this.unlikes = 0;
@@ -52,9 +51,22 @@ public class Post implements HasPost, Comparable<Post> {
          this.priority = newPriority;
      }
      
-     public void setblind(float newPriority) {
-         this.blind = (blind) ? false : true;
+     public void plusBlind() {
+         blind = 2;
      }
+     
+     public void minusBlindPerOne() {
+         blind--;
+     }
+     
+     public int getBlind() {
+    	 return blind;
+     }
+     
+     
+     
+     
+   
      
      public void addL1tagsGroup(String tags) {
          this.L1tagsGroup.add(tags);

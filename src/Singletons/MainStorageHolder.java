@@ -27,11 +27,11 @@ public class MainStorageHolder {
 	        return g;
 	    }
 	    
-	    public void setMainStorage(ArrayList<String> tags,String postName,String postCaption,String hashTag,float postPriority,String author) {
+	    public void setMainStorage(ArrayList<String> tags,String postName,String postCaption,float postPriority,String author) {
 	    	CreateMedia createInstance = new CreateMedia();
 	    	
 	    	//Add post into our data structure
-	        createInstance.createGroup(this.g,tags, postName, postCaption, hashTag, postPriority,author);
+	        createInstance.createGroup(this.g,tags, postName, postCaption, postPriority,author);
 
 	    }
 	    
