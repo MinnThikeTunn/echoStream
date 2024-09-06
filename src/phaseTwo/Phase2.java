@@ -50,28 +50,32 @@ public class Phase2 {
 		phaseTwo(myTag, userGraph);
 	}
 	
-	public static void phaseTwo(String myTag, UserGraph userGraph) {
+	public static List<Post> phaseTwo(String myTag, UserGraph userGraph) {
 		List<User> users = userGraph.getUsersByTag(myTag);
 		List<Post> sharedPosts = new ArrayList<>();
 		
 		for (User u : users) {
     			u.sharePosts(sharedPosts);
+    			if(sharedPosts.size() >= 20) 
+    			{
+    				break;
+    			}
 		}
-
-		
+		int c = 0;
 		for (Post p : sharedPosts) {
-   		 System.out.println(p.getCaption());
+   		 System.out.println(c++ + p.getCaption());
 		}
-
+		return sharedPosts;
 	}
 	
 	public static List<User> generateUserList() {
+		
 		String[] ageGroups = {"Teens", "YoungAdult", "Adult", "MiddleAge", "Older"};
 		String[] genders = {"Male", "Female"};
 		String[] professions = {"Student", "Freelancer", "Retired", "WebDev", "Actor", "Shopkeeper"};
 		String[] interests = {"Art", "Gaming", "Animals", "Food", "Anime", "Cars", "IT", "Sports", "Education", "Entertainment"};
 		
-		int totalUsers = 100;
+		int totalUsers = 1800;
 		List<User> users = new ArrayList<>();
 		
 		for (int i = 0; i < totalUsers; i++) {
@@ -83,6 +87,7 @@ public class Phase2 {
 			};
 			
 			List<Post> posts = new ArrayList<>();
+			
 			for (int j = 0; j < 3; j++) {
 				posts.add(new Post("Post " + j, "Caption for post " + j, 1, "Author"));
 			}
