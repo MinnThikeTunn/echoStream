@@ -31,6 +31,7 @@ public class Post implements HasPost, Comparable<Post> {
      private ArrayList<String> L2tagsGroup;
      private ArrayList<String> authenTagsGroup;
      private int blind = 0;
+     private boolean shared = false;
 
      public Post(String title, String caption,float priority, String author) {
          this.title = title;
@@ -63,7 +64,12 @@ public class Post implements HasPost, Comparable<Post> {
     	 return blind;
      }
      
-     
+     public boolean isShared() {
+    	 return shared;
+     }
+     public void setShared(boolean boo) {
+    	 this.shared = boo;
+     }
      
      
    
