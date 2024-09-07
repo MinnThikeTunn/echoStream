@@ -208,9 +208,10 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		FavoriteAuthorHolder author = FavoriteAuthorHolder.getInstance();
 		AuthorHolder au = AuthorHolder.getInstance();
 		
-		for(int z = 0; z < 2; z++) {
-			feeds2.add(au.getAuthorPosts(author.getAuthor()).get(z));
-		}
+//		author.outPut();
+//		for(int z = 0; z < 2; z++) {
+//			feeds2.add(au.getAuthorPosts(author.getAuthor()).get(z));
+//		}
 		
 		
 //		System.out.println(au.toString());
@@ -349,7 +350,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		  //
 		  
 		
-	      AddPerferenceAuthen(new ArrayList<>(Arrays.asList("girl","young")),percentage,store,newsFeed);
+	      AddPerferenceAuthen(new ArrayList<>(Arrays.asList("girl","boy","young")),percentage,store,newsFeed);
 	      
 	     
 		  
