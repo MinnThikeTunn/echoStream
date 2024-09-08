@@ -1,20 +1,11 @@
 package components;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import Singletons.TagPriorityHolder;
 import interfaces.HasPost;
 
 public class Post implements HasPost, Comparable<Post> {
@@ -22,23 +13,21 @@ public class Post implements HasPost, Comparable<Post> {
 	private String title;
      private String caption;
      private String hashTag;
-     private int likes;
-     private int unlikes;
-     private int comments;
+ 
      private float priority;
      private ArrayList<String> tagsGroup;
      private ArrayList<String> L1tagsGroup;
      private ArrayList<String> L2tagsGroup;
      private ArrayList<String> authenTagsGroup;
      private int blind = 0;
+     private boolean shared = false;
+     
 
      public Post(String title, String caption,float priority, String author) {
          this.title = title;
          this.caption = caption;
          this.priority = priority;
-         this.likes = 0;
-         this.unlikes = 0;
-         this.comments = 0;
+      
          this.author = author;
          this.tagsGroup = new ArrayList<>();
          this.L1tagsGroup = new ArrayList<>();
@@ -61,6 +50,13 @@ public class Post implements HasPost, Comparable<Post> {
      
      public int getBlind() {
     	 return blind;
+     }
+     
+     public boolean isShared() {
+    	 return shared;
+     }
+     public void setShared(boolean boo) {
+    	 this.shared = boo;
      }
      
      

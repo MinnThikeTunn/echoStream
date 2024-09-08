@@ -2,6 +2,7 @@ package application;
 	
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import Singletons.AuthorHolder;
 import Singletons.DupliHolder;
@@ -9,6 +10,7 @@ import Singletons.FavoriteAuthorHolder;
 import Singletons.MainStorageHolder;
 import Singletons.PercentageHolder;
 import Singletons.TagPriorityHolder;
+import Singletons.UserGraphHolder;
 import components.Graph;
 import components.Percentage;
 import components.Post;
@@ -24,6 +26,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*; 
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import phaseTwo.PhaseTwo;
+import phaseTwo.UserGraph;
 import utilities.Builder;
 
 
@@ -203,20 +207,30 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		        break;
 		    }
 		}
+	}
 		
-		System.out.println(store.toString());
+		
 		FavoriteAuthorHolder author = FavoriteAuthorHolder.getInstance();
 		AuthorHolder au = AuthorHolder.getInstance();
 		
-//		author.outPut();
-//		for(int z = 0; z < 2; z++) {
-//			feeds2.add(au.getAuthorPosts(author.getAuthor()).get(z));
-//		}
+		author.outPut();
+		int z = 0;
+		int w = 2;
+		while (z < w) {
+			if (au.getAuthorPosts(author.getAuthor()).size() > 0 && z <= au.getAuthorPosts(author.getAuthor()).size() - 1)
+			if (!dupli.getdupliTags().contains(au.getAuthorPosts(author.getAuthor()).get(z).getTitle())) {
+				feeds2.add(au.getAuthorPosts(author.getAuthor()).get(z));
+			} else {
+				w++;
+			}
+		    
+		    z++;
+		}
 		
 		
-//		System.out.println(au.toString());
-//		System.out.println(author.getAuthor());
-	}
+		System.out.println(au.toString());
+		author.outPut();
+	
 		
         
         // Check if the store has the key and if it has enough elements
@@ -260,6 +274,11 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		 Builder builder = new Builder();
 		 ArrayList<Post> feeds = new ArrayList<>();
 		 ArrayList<Post> feeds2 = new ArrayList<>();
+		 PhaseTwo phaseTwo = new PhaseTwo();
+		 UserGraphHolder.getInstance().clearGraph();
+		 UserGraph phase2 = UserGraphHolder.getInstance().getUserGraph();
+		 
+		 List<Post> share = PhaseTwo.phaseTwo("FoodFreelancerAdultFemale", phase2);
 		 
 		 if(store.getVertexCount() == 0) {
 			 builder.build();
@@ -277,6 +296,16 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		 for(Post feed: feeds2) {
 			 newsFeed.getChildren().add(createPost(feed));
 		 }
+		 int minus = 30 - (feeds.size() + feeds2.size());
+		 
+		 for(int i = 0; i < minus; i++) {
+			 if (share.size() > 0 && i <= share.size() - 1) {
+			 newsFeed.getChildren().add(createPost(share.get(i)));
+			 }
+		 }
+		 
+		 System.out.println(feeds.size() + feeds2.size());
+		 System.out.println(share);
 //		 fetchAuthenTag(0,percentage,store,newsFeed);
 //		 fetchAuthenTag(1,percentage,store,newsFeed);
 		 
