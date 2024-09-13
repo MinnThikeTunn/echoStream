@@ -6,9 +6,9 @@ import java.util.Arrays;
 
 public class TagLevelHolder {
 	private static TagLevelHolder instance;
-	private ArrayList<String> L1tags = new ArrayList<>(Arrays.asList("sport","art","movie","science","politics"));
-	private ArrayList<String> L2tags = new ArrayList<>(Arrays.asList("football","maleSport","femaleSport","physics","chemistry","technology","digitalArt","inkArt","waterColor","horror","humour"));
-	private ArrayList<String> authenTags = new ArrayList<>(Arrays.asList("boy","girl", "young", "old" , "student"));
+	private ArrayList<String> L1tags = new ArrayList<>(Arrays.asList("esport","movie","TVshows","sport","fitness","trending","photo","art","music","food","travel","fashion","beauty","education","technology","gaming","health","craft","business","parenting","learning"));
+	private ArrayList<String> L2tags = new ArrayList<>(Arrays.asList("general","genres","specificTheme","onlinegames","match","atheletics","sportHighlights","workout","gymlife","viral","fyp","photograph","photographer","photoOfTheDay","artist","artwork","musicVideo","musician","foodie","foodporn","travelVlogger","traveller","clothes","style","ootd","makeup","skincare","studyTips","subjects","tech","techNews","gadgets","gamers","gameCommunity","wellness","selfcare","diy","homemade","finance","entrepreneur","family",""));
+	private ArrayList<String> authenTags = new ArrayList<>(Arrays.asList("boy","girl", "youth","sport","male","female","other","students","freelancer","workingProfessional","entrepreneur","retiredIndividual","old","news","lifecycle","education","entertainment","teen","youngAdult","adult","middleAgedAdult","OlderAdult"));
 
     private TagLevelHolder() {
     	
