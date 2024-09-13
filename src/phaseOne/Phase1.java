@@ -116,6 +116,10 @@ public class Phase1 {
         MainStorageHolder.getInstance().getMainStorage().setTagPopularity(new Tag("girl"),2f);
         MainStorageHolder.getInstance().getMainStorage().setPriority(new Tag("girl",TagPriorityHolder.getInstance().getTagPriority("girl")), "Ha Ha bel", 3f);
         
+        System.out.println("heeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        System.out.println(MainStorageHolder.getInstance().getMainStorage());
+        System.out.println("heeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        
 //        g.getKey(new Tag("boy", 3f));
         // Printing the graph
         System.out.println("Graph:\n" + g.toString());

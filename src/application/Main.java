@@ -379,7 +379,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		  //
 		  
 		
-	      AddPerferenceAuthen(new ArrayList<>(Arrays.asList("girl","boy","young")),percentage,store,newsFeed);
+	      AddPerferenceAuthen(new ArrayList<>(Arrays.asList("girl","boy","youth","style")),percentage,store,newsFeed);
 	      
 	     
 		  
