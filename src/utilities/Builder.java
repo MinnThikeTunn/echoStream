@@ -5,7 +5,11 @@ import java.util.Arrays;
 
 import Singletons.MainStorageHolder;
 
-
+/*
+ * 
+ * Used for building(only for testing)
+ * 
+ */
 public class Builder {
 	
 	public void build() {

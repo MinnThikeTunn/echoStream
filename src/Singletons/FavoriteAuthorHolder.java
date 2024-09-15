@@ -1,75 +1,63 @@
 package Singletons;
 
-
-
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 import components.Author;
 
-
-
 public class FavoriteAuthorHolder {
-	 private static FavoriteAuthorHolder instance;
-	 private PriorityQueue<Author> posts;
-	 
+    private static FavoriteAuthorHolder instance;
+    private List<Author> authors;
 
-	    private FavoriteAuthorHolder() {
-	    	posts = new PriorityQueue<>((a1, a2) -> Float.compare(a2.getOccurance(), a1.getOccurance()));
-	       
-	    } // Private constructor
+    private FavoriteAuthorHolder() {
+        authors = new ArrayList<>();
+    } // Private constructor
 
-	    public static synchronized FavoriteAuthorHolder getInstance() {
-	        if (instance == null) {
-	            instance = new FavoriteAuthorHolder();
-	        }
-	        return instance;
-	    }
-	    
-	    public String getAuthor() {
-	        return posts.peek().getAuthor();
-	    }
+    public static synchronized FavoriteAuthorHolder getInstance() {
+        if (instance == null) {
+            instance = new FavoriteAuthorHolder();
+        }
+        return instance;
+    }
 
-	    
-	    
-	    public void addAuthor(String author) {
-	    	
-	    	if(posts.contains(new Author(author))) {
-	    		
-	    		PriorityQueue<Author> Tempoposts = new PriorityQueue<>((a1, a2) -> Float.compare(a2.getOccurance(), a1.getOccurance()));
-	    		 for (Author main : posts) {
-	    	            if(main.getAuthor() == author) { 
-	    	            	main.AddOccurance();
-	    	            	
-	    	            }
-	    	            Tempoposts.offer(main);
-	    	            
-	    	        }
-	    		 posts = Tempoposts;
-	    		 
-	    		 
-	    	} else {
-	    		
-	    		posts.offer(new Author(author));
-	    }
-	    }
-	       
-	    
-	    
-	    
-	    
-	   
-	    public void outPut() {
-	      
-	        for (Author v : posts) {
-	        	System.out.println("Author = " + v.getAuthor() + "Occurance = "+ v.getOccurance());
-	            
-	        }
-	        
-	    }
+    public String getAuthor() {
+        if (authors.isEmpty()) {
+            return null; // Handle case where no authors exist
+        }
+        // Return the first author (highest occurrence) by sorting temporarily
+        return authors.get(0).getAuthor();
+    }
+    
+    
+    public String getAuthor2() {
+        // Check if the list is empty or has less than 2 elements
+        if (authors.isEmpty() || authors.size() < 2) {
+            return null; // Handle case where there aren't enough authors
+        }
+        // Return the second author (authors are 0-indexed)
+        return authors.get(authors.size() - 1).getAuthor();
+    }
 
-	   
-	    
-	   
-	    
-	   
+
+    public void addAuthor(String author) {
+        boolean found = false;
+        for (Author main : authors) {
+            if (main.getAuthor().equals(author)) {
+                main.AddOccurance();
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            // Add the new author at the end of the list
+            authors.add(new Author(author));
+        }
+    }
+
+    public void outPut() {
+        for (Author v : authors) {
+            System.out.println("Author = " + v.getAuthor() + " Occurance = " + v.getOccurance());
+        }
+    }
 }
