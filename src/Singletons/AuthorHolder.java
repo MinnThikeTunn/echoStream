@@ -39,7 +39,7 @@ public class AuthorHolder {
 	    public void addPostToAuthor(String author, Post post) {
 	        PriorityQueue<Post> posts = authorPost.get(author);
 	        if (posts == null) {
-	            posts = new PriorityQueue<>((a1, a2) -> Float.compare(a1.getPriority(), a2.getPriority())); // Create a new PriorityQueue if it doesn't exist
+	            posts = new PriorityQueue<>((a1, a2) -> Float.compare(a2.getPriority(), a1.getPriority())); // Create a new PriorityQueue if it doesn't exist
 	            authorPost.put(author, posts);
 	        }
 	        posts.add(post); // Add the post to the PriorityQueue
@@ -54,7 +54,7 @@ public class AuthorHolder {
 	        }
 
 	        // Create a temporary priority queue to hold the updated elements
-	        PriorityQueue<Post> updatedQueue = new PriorityQueue<>((a1, a2) -> Float.compare(a1.getPriority(), a2.getPriority()));
+	        PriorityQueue<Post> updatedQueue = new PriorityQueue<>((a1, a2) -> Float.compare(a2.getPriority(), a1.getPriority()));
 	        boolean found = false;
 
 	        // Iterate through the original queue to find and update the element

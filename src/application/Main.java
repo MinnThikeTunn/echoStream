@@ -2,7 +2,9 @@ package application;
 	
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import Singletons.AuthorHolder;
 import Singletons.DupliHolder;
@@ -19,11 +21,15 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*; 
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import phaseTwo.PhaseTwo;
@@ -76,7 +82,7 @@ public void tagfetch(ArrayList<Percentage> levelpercent,PercentageHolder percent
 	int number = 0;
 	DupliHolder dupli = DupliHolder.getInstance();
 	
-	 for(int i = 0; i < levelpercent.size()/2; i++) {
+	 for(int i = 0; i < levelpercent.size(); i++) {
 		 float percent = levelpercent.get(i).getPercent();
 		 int finish = 0;
 	 
@@ -88,22 +94,26 @@ public void tagfetch(ArrayList<Percentage> levelpercent,PercentageHolder percent
 		        number = 1;
 		    }
 		 
+		int increment = finish; // Start increment from j
+		Random random = new Random();
+		 
 		 while(number > finish) {
 			 
+			 	
 		       String LevelTag = tagLevel.get(i).getTag();
-		        
+		       increment = (finish < number - 1 && number > 2) ? finish : random.nextInt(store.getKey(LevelTag).size());
 		        // Check if the store has the key and if it has enough elements
 		        if (store.getKey(LevelTag).size() > 0 && finish <= store.getKey(LevelTag).size() - 1) {
 		            // Add the post to the newsFeed
-		        	if (!dupli.getdupliTags().contains(store.getKey(LevelTag).get(finish).getTitle())) {
-		        		if(store.getKey(LevelTag).get(finish).getBlind() == 0) {
-		        			feeds.add(store.getKey(LevelTag).get(finish));
-		        			store.getKey(LevelTag).get(finish).plusBlind();
+		        	if (!dupli.getdupliTags().contains(store.getKey(LevelTag).get(increment).getTitle())) {
+		        		if(store.getKey(LevelTag).get(increment).getBlind() == 0) {
+		        			feeds.add(store.getKey(LevelTag).get(increment));
+		        			store.getKey(LevelTag).get(increment).plusBlind();
 		        		} else {
-		        			store.getKey(LevelTag).get(finish).minusBlindPerOne();
+		        			store.getKey(LevelTag).get(increment).minusBlindPerOne();
 		        			number++;
 		        		}
-		        		dupli.addDupliTags(store.getKey(LevelTag).get(finish).getTitle());
+		        		dupli.addDupliTags(store.getKey(LevelTag).get(increment).getTitle());
 		        	}
 		        	finish++;
 		            
@@ -127,7 +137,7 @@ public void tagfetch(ArrayList<Percentage> levelpercent,PercentageHolder percent
 //			        dupli.addDupliTags(manipulate.getTitle());
 //			       
 //			    }
-		        finish++;
+//		        finish++;
 		 
 		 
 		 
@@ -140,29 +150,38 @@ public void popularFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<P
 	int number = (20 - feeds.size())/4;
 	DupliHolder dupli = DupliHolder.getInstance();
 	
-	for(int i = 0; i < 2; i++) { 
+	for(int i = 0; i < 3; i++) { 
 		String FamousTag = store.getTag().get(i).getTitle();
 		 
 		int j = 0;
+		Random random = new Random();
+		int increment = j; // Start increment from j
+
 		while (j < number && store.getKey(FamousTag).size() > 0 && j <= store.getKey(FamousTag).size() - 1) {
+		    // Check if j is less than number - 1, else fetch from the middle
+		    increment = (j < number - 1) ? j : random.nextInt(store.getKey(FamousTag).size());
+
 		    // Add the post to the newsFeed
-		    Post manipulate = store.getKey(FamousTag).get(j);
+		    Post manipulate = store.getKey(FamousTag).get(increment);
+
 		    if (!dupli.getdupliTags().contains(manipulate.getTitle())) {
-		    	System.out.println(manipulate.getBlind());
-		    	if(manipulate.getBlind() == 0) {
-		    		feeds2.add(manipulate);
-		    		manipulate.plusBlind();
-		    	} else {
-		    		manipulate.minusBlindPerOne();
-		    		number++;
-		    	}
-		        
+		        // Add to feed and increment blind count if applicable
+		        if (manipulate.getBlind() == 0) {
+		            feeds2.add(manipulate);
+		            manipulate.plusBlind();
+		        } else {
+		            manipulate.minusBlindPerOne();
+		            number++; // Adjust number to process one more post if necessary
+		        }
+
+		        // Mark this post as processed by adding to duplicate tags
 		        dupli.addDupliTags(manipulate.getTitle());
-		       
 		    }
-		    
+
+		    // Increment j (which controls the loop)
 		    j++;
 		}
+
 		
 	}
 		
@@ -173,10 +192,11 @@ public void popularFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<P
 
 public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Post> feeds2,PercentageHolder percentage) {
 	// TODO Auto-generated method stub
-	int number = (20 - feeds.size())/4;
+//	int number = (20 - feeds.size())/4;
+	int number = 5;
 	DupliHolder dupli = DupliHolder.getInstance();
 	
-	for(int i = 0; i < 2; i++) { 
+	for(int i = 0; i < percentage.getAuthenPercentage().size(); i++) { 
 		String appenTag = percentage.getAuthenPercentage().get(i).getTag();
 		 
 		int j = 0;
@@ -217,12 +237,43 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		int z = 0;
 		int w = 2;
 		while (z < w) {
-			if (au.getAuthorPosts(author.getAuthor()).size() > 0 && z <= au.getAuthorPosts(author.getAuthor()).size() - 1)
-			if (!dupli.getdupliTags().contains(au.getAuthorPosts(author.getAuthor()).get(z).getTitle())) {
-				feeds2.add(au.getAuthorPosts(author.getAuthor()).get(z));
-			} else {
-				w++;
+//			if (au.getAuthorPosts(author.getAuthor()).size() > 0 && z <= au.getAuthorPosts(author.getAuthor()).size() - 1) {
+//				if (!dupli.getdupliTags().contains(au.getAuthorPosts(author.getAuthor()).get(z).getTitle())) {
+//					feeds2.add(au.getAuthorPosts(author.getAuthor()).get(z));
+//					
+//				} else {
+//					w++;
+//				}
+//			}
+//			
+//			
+//			if (au.getAuthorPosts(author.getAuthor2()).size() > 0 && z <= au.getAuthorPosts(author.getAuthor2()).size() - 1) {
+//				if(!dupli.getdupliTags().contains(au.getAuthorPosts(author.getAuthor2()).get(z).getTitle())) {
+//					feeds2.add(au.getAuthorPosts(author.getAuthor2()).get(z));
+//				} else {
+//					w++;
+//				}
+//			}
+			
+			if (z >= 0 && z <= au.getAuthorPosts(author.getAuthor()).size() - 1) {
+			    if (!dupli.getdupliTags().contains(au.getAuthorPosts(author.getAuthor()).get(z).getTitle())) {
+			        feeds2.add(au.getAuthorPosts(author.getAuthor()).get(z));
+			    } else {
+			        w++;
+			    }
 			}
+
+			if (z >= 0 && z <= au.getAuthorPosts(author.getAuthor2()).size() - 1) {
+				System.out.println("teeest"+z);
+			    if (!dupli.getdupliTags().contains(au.getAuthorPosts(author.getAuthor2()).get(z).getTitle())) {
+			        feeds2.add(au.getAuthorPosts(author.getAuthor2()).get(z));
+			    } else {
+			        w++;
+			    }
+			}
+
+
+			
 		    
 		    z++;
 		}
@@ -289,6 +340,9 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		 fetchFromtags(percentage,store,feeds);
 		 popularFetch(feeds,store,feeds2);
 		 appenFetch(feeds,store,feeds2,percentage);
+		 
+		 Collections.shuffle(feeds);
+		 Collections.shuffle(feeds2);
 		 for(Post feed: feeds) {
 			 newsFeed.getChildren().add(createPost(feed));
 		 }
@@ -305,7 +359,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		 }
 		 
 		 System.out.println(feeds.size() + feeds2.size());
-		 System.out.println(share);
+		 System.out.println(AuthorHolder.getInstance().toString());
 //		 fetchAuthenTag(0,percentage,store,newsFeed);
 //		 fetchAuthenTag(1,percentage,store,newsFeed);
 		 
@@ -375,6 +429,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		  MainStorageHolder storage = MainStorageHolder.getInstance();
 		  Graph<Tag,Post> store = MainStorageHolder.getInstance().getMainStorage();
 		  VBox newsFeed = new VBox(10);
+		  newsFeed.setAlignment(Pos.CENTER);
 		  
 		  //
 		  
@@ -409,15 +464,17 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 	            	dupli.clearDupliTags();
 //	            	AddPerferenceL1(new ArrayList<>(Arrays.asList("boy","student","student")),percentage);
 	            	createFeed(newsFeed);
+	            	scrollPane.setVvalue(0.0);
 	            }
 	        });
 	      
 
 	        HBox navButtons = new HBox(10, nextButton);
 	        navButtons.setPadding(new Insets(10));
+	        navButtons.setAlignment(Pos.CENTER);
 
 	        VBox mainLayout = new VBox(scrollPane, navButtons);
-
+	        mainLayout.setAlignment(Pos.CENTER);
 	        Scene scene = new Scene(mainLayout, 600, 800);
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("Social Media Newsfeed");
@@ -446,13 +503,21 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 	        //test to take out three post from graph;
 	        
 	        VBox main = new VBox(5);
+	        
+	        main.setMinWidth(600);  // Set minimum width
+	     
+	        main.setMaxWidth(600);  // Set maximum width
+	        
+	      
+	       
+	        
 //	        float plusLike = (float)1e-10;
 	        float plusLike = 1;
-	        float plusComment = (float)5e-10;
+	        float plusComment = 0.5f;
 	        PercentageHolder percentage = PercentageHolder.getInstance();
-	        float unlike = 1;
+	        
 	        main.setPadding(new Insets(10));
-	        main.setStyle("-fx-border-color: lightgrey; -fx-border-width: 1px; -fx-background-color: #f9f9f9;");
+	        main.setStyle("-fx-border-color: lightgrey; -fx-border-width: 1px; -fx-background-color: #ffffff;");
 
 	        // Title
 	        
@@ -463,24 +528,82 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 //	        ImageView imageView = new ImageView(new Image("https://via.placeholder.com/500x300.png?text=Media"));
 	        
 	        //In case the starting time took to long in your machine. It took too long because of the https link;
-	        Image image = new Image(getClass().getResourceAsStream("datachef_sample_comic (1).png"));
-	        ImageView imageView = new ImageView(image);
-	        imageView.setFitWidth(500);
-	        imageView.setFitHeight(300);
+//	        Image image = new Image(getClass().getResourceAsStream("datachef_sample_comic (1).png"));
+//	        ImageView imageView = new ImageView(image);
+//	        imageView.setFitWidth(500);
+//	        imageView.setFitHeight(300);
+	        
+	        ArrayList<Color> neonColors = new ArrayList<>();
+	        neonColors.add(Color.LIME); // Neon Green
+	        neonColors.add(Color.MAGENTA); // Neon Magenta
+	        neonColors.add(Color.CYAN); // Neon Cyan
+	        neonColors.add(Color.YELLOW); // Neon Yellow
+	        neonColors.add(Color.PINK); // Neon Pink
+	        neonColors.add(Color.ORANGE); // Neon Orange
+	        neonColors.add(Color.FUCHSIA); // Neon Fuchsia
 
-	        // Content Text
-	        Text contentLabel = new Text(post.getCaption());
+	        // Create a Random instance
+	        Random random = new Random();
+
+	        // Select a random color from the list
+	        Color randomColor = neonColors.get(random.nextInt(neonColors.size()));
+
+	        // Create a Rectangle and set its color
+	        Rectangle rectangle = new Rectangle(570, 300);
+	        rectangle.setFill(randomColor);
+	        rectangle.setStroke(randomColor); // Border color
+	        rectangle.setStrokeWidth(3); // Border width
+	        rectangle.setArcWidth(16); // Horizontal radius of the arc for the rounded corners
+	        rectangle.setArcHeight(16); // Vertical radius of the arc for the rounded corners
+
+	        // Create a StackPane and add the Rectangle to it
+	        StackPane stackPane = new StackPane(rectangle);
+	        
+	        
+	        
+
+//	         Content Text
+	        Text contentLabel = new Text("");
+	        Text authorss = new Text("Created By ... " + post.getAuthor());
 
 	        // Hashtags and Tags (simple text for example purposes)
-	        Text hashtags = new Text("#ExampleHashtag #JavaFX");
-	        Text tags = new Text("Tagged: @User1 @User2");
+	        
+	        
+//
+//	        // Create a Text node with the concatenated hashtags
+//	        Text hashtags = new Text(hashtagsBuilder.toString());
+	        ArrayList<String> combinedList = new ArrayList<>();
+	        combinedList.addAll(post.getL1Tags());
+	        combinedList.addAll(post.getL2Tags());
+	        combinedList.addAll(post.getTags());
+	        
+	        StringBuilder hashtagsBuilder = new StringBuilder();
+
+	        // Use a for loop to concatenate the hashtags into a single string
+	        for (int i = 0; i < combinedList.size(); i++) {
+	            hashtagsBuilder.append("#" + combinedList.get(i) + "        ");
+	            if (i < combinedList.size() - 1) {
+	                hashtagsBuilder.append(" "); // Add a space between hashtags
+	            }
+	        }
+	        
+	        Text hashtags = new Text(hashtagsBuilder.toString());
+	      
 
 	        // Reactions and Comments
-	        HBox reactions = new HBox(10);
+	        HBox reactions = new HBox(100);
 	        Button likeButton = new Button("Like");
-	        Button unlikeButton = new Button("Unlike");
+	        likeButton.setMaxWidth(70);
+	        likeButton.setMinWidth(70);
+	        likeButton.setAlignment(Pos.BASELINE_LEFT);
+	        likeButton.setAlignment(Pos.CENTER);
 	        Button commentButton = new Button("Comment");
-	        reactions.getChildren().addAll(likeButton, unlikeButton, commentButton);
+	        commentButton.setMaxWidth(70);
+	        commentButton.setMinWidth(70);
+	        commentButton.setAlignment(Pos.BASELINE_RIGHT);
+	        commentButton.setAlignment(Pos.CENTER);
+	        reactions.getChildren().addAll(likeButton, commentButton);
+	        reactions.setAlignment(Pos.CENTER);
 	        
 	        
 	        likeButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -550,36 +673,23 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 
 	                 
 	                
-	                 
+	                 System.out.println("levelllllllllllllllllllllllllllllll authennnnnnnnn");
+	                 percentage.printAuthenPercentage();
+	                 System.out.println("levelllllllllllllllllllllllllllllll levellll1111");
+	                 percentage.printLevel1Percentage();
+	                 System.out.println("levelllllllllllllllllllllllllllllll levellll222");
 	                 percentage.printLevel2Percentage();
+	                 System.out.println("levelllllllllllllllllllllllllllllll levellll3333");
+	                 percentage.printLevel3Percentage();
+	                 
+	                 System.out.println(holder.getMainStorage().toString());
 	            }
 	        });
 	        
 	        
 	        //Interaction part
 	        
-	        unlikeButton.setOnAction(new EventHandler<ActionEvent>() {
-	        	private boolean isRed = false;
-	            @Override
-	            public void handle(ActionEvent event) {
-	            	if (isRed) {
-	                     unlikeButton.setStyle(""); // none
-	                 } else {
-	                     unlikeButton.setStyle("-fx-background-color: #FF0000;"); // Red color
-	                 }
-	                 
-	                 // Toggle the state
-	                 isRed = !isRed;
-	                 
-	                 float curretPriority = post.getPriority();
-	                 System.out.println(curretPriority);
-	                 
-
-	                 // Print a message to the console
-	                 post.setPriority(curretPriority - unlike);
-	                 System.out.println(post.getPriority());
-	            }
-	        });
+	       
 	        
 	        commentButton.setOnAction(new EventHandler<ActionEvent>() {
 	        	private boolean isRed = false; 
@@ -651,7 +761,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 	        });
 
 	        // Adding elements to the post
-	        main.getChildren().addAll(titleLabel, imageView, contentLabel, hashtags, tags, reactions);
+	        main.getChildren().addAll(titleLabel, rectangle, contentLabel, hashtags, reactions,authorss);
 
 	        return main;
 	    }
