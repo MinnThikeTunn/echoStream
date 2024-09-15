@@ -17,6 +17,7 @@ import components.Graph;
 import components.Percentage;
 import components.Post;
 import components.Tag;
+import components.User;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -328,8 +329,17 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		 PhaseTwo phaseTwo = new PhaseTwo();
 		 UserGraphHolder.getInstance().clearGraph();
 		 UserGraph phase2 = UserGraphHolder.getInstance().getUserGraph();
-		 
-		 List<Post> share = PhaseTwo.phaseTwo("FoodFreelancerAdultFemale", phase2);
+		 int userCountLimit = 20;
+		 List<String> ageGroups = new ArrayList<>(Arrays.asList("teen","youngAdult","adult","middleAgedAdult","olderAdult"));
+		 List<String> genders = new ArrayList<>(Arrays.asList("male", "female"));
+		 List<String> professions = new ArrayList<>(Arrays.asList("student", "freelancer", "retiredIndividual", "WebDev", "Actor", "workingProfessional"));
+		 List<String> interests = new ArrayList<>(Arrays.asList("art", "gaming", "animals", "food", "anime", "cars", "technology", "sports", "education", "entertainment"));
+		    
+		    
+		 String[] myTag = {interests.get(0), professions.get(0), ageGroups.get(0), genders.get(0)};
+	     User hostUser = new User(myTag, new ArrayList<>());
+	        
+		 List<Post> share = phaseTwo.phaseTwo(hostUser, phase2, userCountLimit);
 		 
 		 if(store.getVertexCount() == 0) {
 			 builder.build();
@@ -380,7 +390,16 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		 
 	 }
 	 
-	 public void AuthFetch(PercentageHolder percentage,Graph<Tag,Post> store,VBox newsFeed) {
+	
+
+
+
+
+
+
+
+
+	public void AuthFetch(PercentageHolder percentage,Graph<Tag,Post> store,VBox newsFeed) {
 		 int number = 10;
 		 Builder builder = new Builder();
 		 builder.build();
@@ -434,7 +453,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		  //
 		  
 		
-	      AddPerferenceAuthen(new ArrayList<>(Arrays.asList("girl","boy","youth","style")),percentage,store,newsFeed);
+	      AddPerferenceAuthen(new ArrayList<>(Arrays.asList("male","teen","student","sport")),percentage,store,newsFeed);
 	      
 	     
 		  

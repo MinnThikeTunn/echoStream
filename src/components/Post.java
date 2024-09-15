@@ -52,11 +52,11 @@ public class Post implements HasPost, Comparable<Post> {
     	 return blind;
      }
      
-     public boolean isShared() {
+     public boolean getShare() {
     	 return shared;
      }
-     public void setShared(boolean boo) {
-    	 this.shared = boo;
+     public void setShare() {
+    	 this.shared ^= true;
      }
      
      
