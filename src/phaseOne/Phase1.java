@@ -154,7 +154,7 @@ public class Phase1 {
         holder.addPercentage(2, "authen 1", 2);
         holder.addPercentage(2, "authen 2", 3);
         holder.addPercentage(1, "authen 3", 3);
-        holder.addPercentage(1, "authen 4", 3);
+        holder.addPercentage(1, "authen 4", 3);	
         
     
         
