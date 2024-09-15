@@ -207,7 +207,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		        Post manipulate = store.getKey(appenTag).get(j);
 
 		        // Check if the post is already in feeds2
-		        System.out.println(dupli.getdupliTags());
+//		        System.out.println(dupli.getdupliTags());
 		        if (!dupli.getdupliTags().contains(manipulate.getTitle())) {
 		            // Add the post to feeds2 if it's not already present
 		        	if(manipulate.getBlind() == 0) {
@@ -265,7 +265,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 			}
 
 			if (z >= 0 && z <= au.getAuthorPosts(author.getAuthor2()).size() - 1) {
-				System.out.println("teeest"+z);
+			
 			    if (!dupli.getdupliTags().contains(au.getAuthorPosts(author.getAuthor2()).get(z).getTitle())) {
 			        feeds2.add(au.getAuthorPosts(author.getAuthor2()).get(z));
 			    } else {
@@ -280,8 +280,8 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		}
 		
 		
-		System.out.println(au.toString());
-		author.outPut();
+//		System.out.println(au.toString());
+//		author.outPut();
 	
 		
         
@@ -303,7 +303,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 	 
 	
 	 
-	 System.out.println(feeds);
+//	 System.out.println(feeds);
 	 
 	 
 //	    int number = 0;
@@ -368,8 +368,8 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 			 }
 		 }
 		 
-		 System.out.println(feeds.size() + feeds2.size());
-		 System.out.println(AuthorHolder.getInstance().toString());
+//		 System.out.println(feeds.size() + feeds2.size());
+//		 System.out.println(AuthorHolder.getInstance().toString());
 //		 fetchAuthenTag(0,percentage,store,newsFeed);
 //		 fetchAuthenTag(1,percentage,store,newsFeed);
 		 
@@ -429,7 +429,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 		 
 		 
 		 
-		 
+	
 	 
 		 
 	 }
@@ -692,16 +692,25 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 
 	                 
 	                
-	                 System.out.println("levelllllllllllllllllllllllllllllll authennnnnnnnn");
-	                 percentage.printAuthenPercentage();
-	                 System.out.println("levelllllllllllllllllllllllllllllll levellll1111");
+	            
+	                 System.out.println("level1 calculator=--------------------------------------------------------------");
 	                 percentage.printLevel1Percentage();
-	                 System.out.println("levelllllllllllllllllllllllllllllll levellll222");
-	                 percentage.printLevel2Percentage();
-	                 System.out.println("levelllllllllllllllllllllllllllllll levellll3333");
-	                 percentage.printLevel3Percentage();
+	                 System.out.println("level1 calculator=--------------------------------------------------------------");
+
 	                 
+	                 System.out.println("level2 calculator---------------------------------------------------------------");
+	                 percentage.printLevel2Percentage();
+	                 System.out.println("level2 calculator---------------------------------------------------------------");
+
+	                 System.out.println("level3 calculator---------------------------------------------------------------");
+	                 percentage.printLevel3Percentage();
+	                 System.out.println("level3 calculator---------------------------------------------------------------");
+	                 
+	                 
+	                 System.out.println("Echo -------------------------------------------------------------------------");
+	                
 	                 System.out.println(holder.getMainStorage().toString());
+	                 System.out.println("Echo -------------------------------------------------------------------------");
 	            }
 	        });
 	        
@@ -758,7 +767,8 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 	                	 percentage.addPercentage(3, tag, 2);                	 
 	                 }
 	                 author.addAuthor(post.getAuthor());
-	                 System.out.println(holder.getMainStorage().toString());
+//	                 System.out.println(holder.getMainStorage().toString());
+	                 
 //	                 System.out.println("level 1 tag is" + post.getL1Tags());
 //	                 System.out.println("level 1 tag is" + post.getL2Tags());
 //	                
