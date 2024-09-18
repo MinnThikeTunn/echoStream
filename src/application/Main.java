@@ -23,9 +23,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -568,15 +569,56 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 	        Color randomColor = neonColors.get(random.nextInt(neonColors.size()));
 
 	        // Create a Rectangle and set its color
-	        Rectangle rectangle = new Rectangle(570, 300);
-	        rectangle.setFill(randomColor);
-	        rectangle.setStroke(randomColor); // Border color
-	        rectangle.setStrokeWidth(3); // Border width
-	        rectangle.setArcWidth(16); // Horizontal radius of the arc for the rounded corners
-	        rectangle.setArcHeight(16); // Vertical radius of the arc for the rounded corners
+	        Image esportImage = new Image(getClass().getResourceAsStream("Bren Esports Berhasil Menang pada Turnamen M2 Mobile Legend _ PramborsFM.jfif"));
+	        Image movieImage = new Image(getClass().getResourceAsStream("Netflix Extension Lets Users Chat with Friends While Watching During Coronavirus Distancing.jfif"));
+	        Image tvShowsImage = new Image(getClass().getResourceAsStream("93083006-1a73-4c86-8e7c-5af417581677.jfif"));
+	        Image sportImage = new Image(getClass().getResourceAsStream("Premium Vector _ Colorful poster of sports lifestyle with sports icons set.jfif"));
+	        Image fitnessImage = new Image(getClass().getResourceAsStream("Fitness Gym Clipart PNG Images, Gym Logo Fitness Vector Logo Design Template Design For Gym And Fitness Vector, Active, Activity, Arm PNG Image For Free Download.jfif"));
+	        Image educationImage = new Image(getClass().getResourceAsStream("Silhouette Graduation Cap Clipart PNG Images, Graduation Cap, Cap, Graduation, Black PNG Image For Free Download.jfif"));
+	        Image technologyImage = new Image(getClass().getResourceAsStream("Premium Photo _ Future artificial intelligence robot and cyborg_.jfif"));
 
-	        // Create a StackPane and add the Rectangle to it
-	        StackPane stackPane = new StackPane(rectangle);
+	        Node dynamicNode;
+
+	        if (post.getL1Tags().contains("esport")) {
+	            dynamicNode = new ImageView(esportImage);
+	            ((ImageView) dynamicNode).setFitWidth(570);
+		        ((ImageView) dynamicNode).setFitHeight(300);
+	        } else if (post.getL1Tags().contains("movie")) {
+	            dynamicNode = new ImageView(movieImage);
+	            ((ImageView) dynamicNode).setFitWidth(570);
+		        ((ImageView) dynamicNode).setFitHeight(300);
+	        } else if (post.getL1Tags().contains("TVshows")) {
+	            dynamicNode = new ImageView(tvShowsImage);
+	            ((ImageView) dynamicNode).setFitWidth(570);
+		        ((ImageView) dynamicNode).setFitHeight(300);
+	        } else if (post.getL1Tags().contains("sport")) {
+	            dynamicNode = new ImageView(sportImage);
+	            ((ImageView) dynamicNode).setFitWidth(570);
+		        ((ImageView) dynamicNode).setFitHeight(300);
+	        } else if (post.getL1Tags().contains("fitness")) {
+	            dynamicNode = new ImageView(fitnessImage);
+	            ((ImageView) dynamicNode).setFitWidth(570);
+		        ((ImageView) dynamicNode).setFitHeight(300);
+	        } else if (post.getL1Tags().contains("education")) {
+	            dynamicNode = new ImageView(educationImage);
+	            ((ImageView) dynamicNode).setFitWidth(570);
+		        ((ImageView) dynamicNode).setFitHeight(300);
+		        
+	        } else if (post.getL1Tags().contains("technology")) {
+	            dynamicNode = new ImageView(technologyImage);
+	            ((ImageView) dynamicNode).setFitWidth(570);
+		        ((ImageView) dynamicNode).setFitHeight(300);
+	        } else {
+	            // If no matching tag, use a rectangle
+	            Rectangle rectangle = new Rectangle(570, 300);
+	            rectangle.setFill(randomColor);  // Your random color logic
+	            rectangle.setStroke(randomColor);
+	            rectangle.setStrokeWidth(3);
+	            rectangle.setArcWidth(16);
+	            rectangle.setArcHeight(16);
+	            dynamicNode = rectangle;
+	        }
+
 	        
 	        
 	        
@@ -790,7 +832,7 @@ public void appenFetch(ArrayList<Post> feeds,Graph<Tag,Post> store,ArrayList<Pos
 	        });
 
 	        // Adding elements to the post
-	        main.getChildren().addAll(titleLabel, rectangle, contentLabel, hashtags, reactions,authorss);
+	        main.getChildren().addAll(titleLabel, dynamicNode, contentLabel, hashtags, reactions,authorss);
 
 	        return main;
 	    }
